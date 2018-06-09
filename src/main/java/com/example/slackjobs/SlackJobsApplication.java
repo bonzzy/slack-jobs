@@ -22,23 +22,23 @@ public class SlackJobsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SlackJobsApplication.class, args);
 	}
-
-	@Bean
-	CommandLineRunner init(SlackJobsRepository slackJobsRepository) {
-		return (evt) -> Arrays.asList(
-				"jhoeller,dsyer,pwebb,ogierke,rwinch,mfisher,mpollack,jlong".split(","))
-				.forEach(
-						message -> {
-							SlackJob slackJob = new SlackJob();
-
-							slackJob.message = message;
-							slackJob.channel = "channel_id";
-							slackJob.timestamp = "12313213123";
-							slackJob.setJobStatus(SlackJob.JobStatus.PENDING);
-
-							slackJobsRepository.save(slackJob);
-						});
-	}
+//
+//	@Bean
+//	CommandLineRunner init(SlackJobsRepository slackJobsRepository) {
+//		return (evt) -> Arrays.asList(
+//				"jhoeller,dsyer,pwebb,ogierke,rwinch,mfisher,mpollack,jlong".split(","))
+//				.forEach(
+//						message -> {
+//							SlackJob slackJob = new SlackJob();
+//
+//							slackJob.message = message;
+//							slackJob.channel = "channel_id";
+//							slackJob.timestamp = "12313213123";
+//							slackJob.setJobStatus(SlackJob.JobStatus.PENDING);
+//
+//							slackJobsRepository.save(slackJob);
+//						});
+//	}
 
 	// CORS
 	@Bean

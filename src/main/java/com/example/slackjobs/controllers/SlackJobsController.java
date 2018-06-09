@@ -1,30 +1,31 @@
 package com.example.slackjobs.controllers;
 
 import com.example.slackjobs.entities.SlackJob;
+import com.example.slackjobs.entities.RestResponse;
 import com.example.slackjobs.entityManagers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/jobs")
+//@RequestMapping("/api/jobs")
 public class SlackJobsController {
 
     @Autowired
     private SlackJobsRepository repository;
 
-    @GetMapping("/")
-    public Collection<SlackJob> getAllJobs() {
-        return repository.findAll();
-    }
+//    @GetMapping("/")
+//    public Collection<SlackJob> getAllJobs() {
+//        return repository.findAll();
+//    }
 
     @PostMapping("/")
     @ResponseBody
-    public String createJob(@RequestParam Map<String, String> body) {
-        SlackJobsManager slackJobsManager = new SlackJobsManager();
+    public ResponseEntity<RestResponse<SlackJob>> createJob(@RequestParam Map<String, String> body) {
+        SlackJobsManager slackJobsManager = new SlackJobsManager(repository);
         SlackJob slackJob = new SlackJob();
 
 
@@ -32,8 +33,8 @@ public class SlackJobsController {
         slackJob.timestamp = body.get("timestamp");
         slackJob.channel = "";
 
-        slackJobsManager.save(slackJob);
-        return "Job is created!";
+        SlackJob savedEntity = slackJobsManager.save(slackJob);
+        return ResponseEntity.status(201).body(new RestResponse<SlackJob>(savedEntity));
     }
 
 }

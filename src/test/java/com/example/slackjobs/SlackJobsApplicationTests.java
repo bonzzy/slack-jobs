@@ -11,6 +11,6 @@ public class SlackJobsApplicationTests {
 
 	@Test
 	public void contextLoads() {
-	}
 
+	}
 }

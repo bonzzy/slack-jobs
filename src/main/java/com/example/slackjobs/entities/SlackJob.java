@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class SlackJob {
@@ -12,11 +13,17 @@ public class SlackJob {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    @NotNull
     private JobStatus jobStatus;
 
-
+    @NotNull
     public String timestamp;
+
+    @NotNull
     public String channel;
+
+    @NotNull
     public String message;
 
     public enum JobStatus {
