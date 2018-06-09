@@ -1,13 +1,13 @@
 package com.example.slackjobs.entities;
 
 public class RestResponse<T> {
-    private T result;
+    private T data;
 
     public RestResponse(T result) {
-        this.result = result;
+        this.data = result;
     }
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 }
