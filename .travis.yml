@@ -5,6 +5,7 @@ install: true
 
 script:
   - ./mvnw clean install
+  - ./mvnw test
 
 cache:
   directories:
