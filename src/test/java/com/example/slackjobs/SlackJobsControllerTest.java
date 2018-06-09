@@ -120,6 +120,7 @@ public class SlackJobsControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.data", notNullValue()))
+                .andExpect(jsonPath("$.data.id", notNullValue()))
                 .andExpect(jsonPath("$.data.message", is(slackJob.message)))
                 .andExpect(jsonPath("$.data.timestamp", is(slackJob.timestamp)));
     }
