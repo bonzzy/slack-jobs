@@ -8,19 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Map;
 
 @RestController
-//@RequestMapping("/api/jobs")
+@RequestMapping("/api/jobs")
 public class SlackJobsController {
 
     @Autowired
     private SlackJobsRepository repository;
 
-//    @GetMapping("/")
-//    public Collection<SlackJob> getAllJobs() {
-//        return repository.findAll();
-//    }
+    @GetMapping("/")
+    public ResponseEntity<RestResponse<Collection<SlackJob>>> getAllJobs() {
+        return ResponseEntity.status(200).body(new RestResponse<>(repository.findAll()));
+    }
 
     @PostMapping("/")
     @ResponseBody
@@ -34,7 +35,7 @@ public class SlackJobsController {
         slackJob.channel = "";
 
         SlackJob savedEntity = slackJobsManager.save(slackJob);
-        return ResponseEntity.status(201).body(new RestResponse<SlackJob>(savedEntity));
+        return ResponseEntity.status(201).body(new RestResponse<>(savedEntity));
     }
 
 }
