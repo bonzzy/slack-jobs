@@ -35,7 +35,6 @@ export class SlackJobsAction {
   }
 
   static errorGet(response: ApiResponse<SlackJobEntity[]>) {
-    console.log("ErrorGet", response);
     return {
       payload: response,
       type: SlackJobsActionTypes.GET_SLACK_ERROR_MESSAGE,
