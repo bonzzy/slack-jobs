@@ -1,0 +1,25 @@
+:global {
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.main {
+  font-family: monospace;
+
+  nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+
+    span > * {
+      color: black;
+      padding: 10px;
+    }
+
+    span:not(:last-child)::after {
+      content: '|';
+    }
+  }
+}
