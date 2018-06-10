@@ -1,11 +1,14 @@
 import { SlackJobs } from '../interfaces/SlackJobs';
+import State = SlackJobs.State;
 
 export enum SlackJobsActionTypes {
+  NETWORK_PROBLEM = 'NETWORK_PROBLEM',
+  GET_SLACK_ERROR_MESSAGE = 'GET_SLACK_ERROR_MESSAGE',
   GET_SLACK_JOBS = 'GET_SLACK_JOBS',
   GET_SLACK_JOBS_SUCCESS = 'GET_SLACK_JOBS_SUCCESS',
   LOADING = 'SLACK_JOBS_LOADING',
 }
-const slackJobs = (state: SlackJobs.State, action: any) => {
+const slackJobs = (state: SlackJobs.State, action: any): State => {
 
   switch (action.type) {
     case SlackJobsActionTypes.GET_SLACK_JOBS:
@@ -18,8 +21,7 @@ const slackJobs = (state: SlackJobs.State, action: any) => {
     case SlackJobsActionTypes.GET_SLACK_JOBS_SUCCESS:
       return {
         ...state,
-        // slackJobs: action.payload.data.slackJobs,
-        data: action.payload,
+        data: action.payload.data,
         loading: false,
       };
 
@@ -27,6 +29,20 @@ const slackJobs = (state: SlackJobs.State, action: any) => {
       return {
         ...state,
         loading: true,
+      };
+
+    case SlackJobsActionTypes.GET_SLACK_ERROR_MESSAGE:
+      return {
+        ...state,
+        loading: false,
+        error: state.error,
+      };
+
+    case SlackJobsActionTypes.NETWORK_PROBLEM:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
     default:

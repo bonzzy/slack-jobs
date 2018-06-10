@@ -13,6 +13,7 @@ const initialState: State = {
   slackJobs: {
     data: [],
     loading: false,
+    error: '',
   },
 };
 

@@ -43,7 +43,7 @@ public class SlackJobsApplication {
 	// CORS
 	@Bean
 	FilterRegistrationBean corsFilter(
-			@Value("${tagit.origin:http://localhost:9000}") String origin) {
+			@Value("${tagit.origin:http://localhost:5678}") String origin) {
 		return new FilterRegistrationBean(new Filter() {
 			public void doFilter(ServletRequest req, ServletResponse res,
 								 FilterChain chain) throws IOException, ServletException {

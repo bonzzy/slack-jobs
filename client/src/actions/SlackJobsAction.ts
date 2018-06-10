@@ -1,8 +1,15 @@
 import { SlackJobsActionTypes } from '../reducers/slackJobs';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
+import { SlackJobsApiService } from '../services/SlackJobsApiService';
+import { ApiResponse } from '../interfaces/Api';
+
+export enum SlackJobsActionMessages {
+  NETWORK_PROBLEM = 'Problem with network!',
+}
 
 export class SlackJobsAction {
-  public static successGet(payload: any) {
+
+  public static successGet(payload: ApiResponse<SlackJobEntity[]>) {
 
     return {
       payload,
@@ -10,19 +17,9 @@ export class SlackJobsAction {
     };
   }
 
-  public static getSlackJobs(): {type: string, payload: Promise<SlackJobEntity[]>} {
-    const request = new Promise<SlackJobEntity[]>((resolve, reject) => {
-      setTimeout(() => {
-        const slackJob = new SlackJobEntity({
-          id: 'HGKS-23SGJR',
-          message: 'This is a message',
-          timestamp: '000000000',
-          sent: false,
-        });
-
-        resolve([slackJob]);
-      }, 2500);
-    });
+  public static getSlackJobs(): {type: SlackJobsActionTypes, payload: Promise<ApiResponse<SlackJobEntity[]>>} {
+    const slackJobApiService = new SlackJobsApiService();
+    const request = slackJobApiService.getAll();
 
     return {
       type: SlackJobsActionTypes.GET_SLACK_JOBS,
@@ -34,6 +31,23 @@ export class SlackJobsAction {
     return {
       payload: '',
       type: SlackJobsActionTypes.LOADING,
+    };
+  }
+
+  static errorGet(response: ApiResponse<SlackJobEntity[]>) {
+    console.log("ErrorGet", response);
+    return {
+      payload: response,
+      type: SlackJobsActionTypes.GET_SLACK_ERROR_MESSAGE,
+    };
+  }
+
+  static errorNetwork() {
+    console.log(SlackJobsActionMessages.NETWORK_PROBLEM);
+
+    return {
+      payload: SlackJobsActionMessages.NETWORK_PROBLEM,
+      type: SlackJobsActionTypes.NETWORK_PROBLEM,
     };
   }
 }
