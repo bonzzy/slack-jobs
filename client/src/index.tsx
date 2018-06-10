@@ -5,6 +5,7 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from './configureStore';
 import App from './components/App';
+require('react-datepicker/dist/react-datepicker-cssmodules.css');
 
 const store = configureStore();
 

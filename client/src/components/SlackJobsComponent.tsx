@@ -5,7 +5,8 @@ import { SlackJobEntity } from '../entities/SlackJobEntity';
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
   render() {
-    const { data, loading } = this.props;
+    const loading = this.props.loading;
+    const data = this.props.data ? this.props.data : [];
 
     const loadingComponent = loading ? 'loading...' : '';
 

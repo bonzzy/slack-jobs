@@ -8,7 +8,7 @@ import axios from'axios';
 import { SlackJobsActionTypes } from '../../src/reducers/slackJobs';
 import { ApiResponse } from '../../src/interfaces/Api';
 import { SlackJobEntity } from '../../src/entities/SlackJobEntity';
-import { FormSlackJobEntity } from '../../src/entities/FormSlackJobEntity';
+import { SlackJobFormEntity } from '../../src/entities/SlackJobFormEntity';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -24,7 +24,7 @@ describe('SlackJobsActions', () => {
     sent: false,
   };
 
-  const simpleFormSlackJob: FormSlackJobEntity = {
+  const simpleFormSlackJob: SlackJobFormEntity = {
     timestamp: '0000000000000',
     message: 'Some message',
   };
@@ -44,10 +44,6 @@ describe('SlackJobsActions', () => {
 
     mockAxios.onGet(`${apiService.getBaseUrl()}${ApiRoutes.ALL_JOBS}`).reply(200, {
       data: simpleDataResponse,
-    });
-
-    mockAxios.onPost(`${apiService.getBaseUrl()}${ApiRoutes.CREATE_JOB}`).reply(200, {
-      data: simpleFormSlackJob,
     });
   });
 
@@ -90,19 +86,6 @@ describe('SlackJobsActions', () => {
     const actions = store.getActions();
 
     expect(actions[0].type).toEqual(SlackJobsActionTypes.NETWORK_PROBLEM);
-  });
-
-  it('should create SAVE_SLACK_JOB when calling saveSlackJob action', (done) => {
-    const store = mockStore({ foo: {} });
-
-    store.dispatch(SlackJobsAction.saveSlackJob(simpleFormSlackJob)).payload.then(() => {
-      const actions = store.getActions();
-
-      expect(actions[0].type).toEqual(SlackJobsActionTypes.SAVE_SLACK_JOB);
-      done();
-    }).catch((err) => {
-      console.log('err', err);
-    });
   });
 
   it('should get valid response from API /jobs/ when calling getSlackJobs action', (done) => {

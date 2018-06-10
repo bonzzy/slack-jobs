@@ -1,7 +1,7 @@
 import { ApiService } from './ApiService';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
 import { ApiResponse } from '../interfaces/Api';
-import { FormSlackJobEntity } from '../entities/FormSlackJobEntity';
+import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 
 export enum ApiRoutes {
   CREATE_JOB = '/',
@@ -14,7 +14,7 @@ export class SlackJobsApiService extends ApiService {
     return this.getRequest<SlackJobEntity[]>(ApiRoutes.ALL_JOBS);
   }
 
-  create<SlackJobEntity>(formSlackJob: FormSlackJobEntity) {
-    return this.postRequest<FormSlackJobEntity>(ApiRoutes.CREATE_JOB, formSlackJob);
+  create<SlackJobEntity>(formSlackJob: SlackJobFormEntity) {
+    return this.postRequest<SlackJobFormEntity>(ApiRoutes.CREATE_JOB, formSlackJob);
   }
 }

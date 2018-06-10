@@ -32,6 +32,14 @@ export class SlackJobFormValidator {
     return this.timestampValidation.valid;
   }
 
+  getMessageError(): string {
+    return this.messageValidation.message;
+  }
+
+  getTimestampError(): string {
+    return this.timestampValidation.message;
+  }
+
   private validateMessage() {
     if (this.slackJobFormEntity.message.length < this.minMessageSize) {
       this.messageValidation.valid = false;

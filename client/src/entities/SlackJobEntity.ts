@@ -1,4 +1,4 @@
-import { FormSlackJobEntity, FormSlackJobEntityAttributes } from './FormSlackJobEntity';
+import { SlackJobFormEntity, FormSlackJobEntityAttributes } from './SlackJobFormEntity';
 
 export interface SlackJobEntityAttributes extends FormSlackJobEntityAttributes{
   id: string;
@@ -6,7 +6,7 @@ export interface SlackJobEntityAttributes extends FormSlackJobEntityAttributes{
   sent: boolean;
 }
 
-export class SlackJobEntity extends FormSlackJobEntity{
+export class SlackJobEntity extends SlackJobFormEntity{
   public id: string;
   public sent: boolean;
   public channel: string;
