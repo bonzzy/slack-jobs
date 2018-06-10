@@ -3,7 +3,7 @@ export interface FormSlackJobEntityAttributes {
   timestamp: string;
 }
 
-export class FormSlackJobEntity {
+export class SlackJobFormEntity {
   public message: string;
   public timestamp: string;
 
