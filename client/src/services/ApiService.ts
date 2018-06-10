@@ -2,12 +2,12 @@ import axios from 'axios';
 import { ApiResponse, AxiosResponse } from '../interfaces/Api';
 import { ApiRoutes } from './SlackJobsApiService';
 
-export abstract class ApiService<T> {
+export abstract class ApiService {
 
-  protected getRequest(apiUrl: string): Promise<ApiResponse<T[]>> {
+  protected getRequest<T>(apiUrl: string): Promise<ApiResponse<T>> {
 
     return new Promise((resolve, reject) => {
-      axios(`${this.getBaseUrl()}${apiUrl}`).then((res: AxiosResponse<T[]>) => {
+      axios(`${this.getBaseUrl()}${apiUrl}`).then((res: AxiosResponse<T>) => {
         if (res.status === 200) {
           resolve(res.data);
           return;
@@ -20,7 +20,7 @@ export abstract class ApiService<T> {
     });
   }
 
-  protected postRequest(apiUrl: ApiRoutes, body: T): Promise<ApiResponse<T>> {
+  protected postRequest<T>(apiUrl: ApiRoutes, body: T): Promise<ApiResponse<T>> {
     return new Promise((resolve, reject) => {
       const options = {
         body,
@@ -30,7 +30,6 @@ export abstract class ApiService<T> {
         },
       };
 
-      console.log('OPTIONS', options);
       axios.post(`${this.getBaseUrl()}${apiUrl}`, options).then((res: AxiosResponse<T>) => {
         if (res.status === 200) {
           resolve(res.data);
@@ -42,8 +41,8 @@ export abstract class ApiService<T> {
     });
   }
 
-  protected getBaseUrl(): string {
-    return 'http://localhost:8080/api/';
+  public getBaseUrl(): string {
+    return 'http://localhost:8080/api';
   }
 
 }

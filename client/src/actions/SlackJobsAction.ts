@@ -2,6 +2,7 @@ import { SlackJobsActionTypes } from '../reducers/slackJobs';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
 import { SlackJobsApiService } from '../services/SlackJobsApiService';
 import { ApiResponse } from '../interfaces/Api';
+import { FormSlackJobEntity } from '../entities/FormSlackJobEntity';
 
 export enum SlackJobsActionMessages {
   NETWORK_PROBLEM = 'Problem with network!',
@@ -42,11 +43,21 @@ export class SlackJobsAction {
   }
 
   static errorNetwork() {
-    console.log(SlackJobsActionMessages.NETWORK_PROBLEM);
-
     return {
       payload: SlackJobsActionMessages.NETWORK_PROBLEM,
       type: SlackJobsActionTypes.NETWORK_PROBLEM,
+    };
+  }
+
+  static saveSlackJob(
+    slackJob: FormSlackJobEntity): {type: SlackJobsActionTypes, payload: Promise<ApiResponse<FormSlackJobEntity>>} {
+
+    const slackJobApiService = new SlackJobsApiService();
+    const request = slackJobApiService.create(slackJob);
+
+    return {
+      type: SlackJobsActionTypes.SAVE_SLACK_JOB,
+      payload: request,
     };
   }
 }
