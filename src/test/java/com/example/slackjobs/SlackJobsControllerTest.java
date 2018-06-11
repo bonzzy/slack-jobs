@@ -1,9 +1,8 @@
 package com.example.slackjobs;
 
-import com.example.slackjobs.controllers.SlackJobsController;
+import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
 import com.example.slackjobs.entityManagers.SlackJobsManager;
-import com.example.slackjobs.helpers.TestUtil;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import com.example.slackjobs.stubs.SlackJobRequestStub;
 import org.junit.Before;
@@ -88,7 +87,7 @@ public class SlackJobsControllerTest {
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.data", hasSize(0)))
-                .andExpect(jsonPath("$.message", is(SlackJobsController.BadRequestMessages.MESSAGE_NULL.message())));
+                .andExpect(jsonPath("$.error", is(BadRequestRestResponse.ErrorMessages.MESSAGE_NULL.getMessage())));
     }
 
     @Test
@@ -102,7 +101,7 @@ public class SlackJobsControllerTest {
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.data", hasSize(0)))
-                .andExpect(jsonPath("$.message", is(SlackJobsController.BadRequestMessages.TIMESTAMP_NULL.message())));
+                .andExpect(jsonPath("$.error", is(BadRequestRestResponse.ErrorMessages.TIMESTAMP_NULL.getMessage())));
     }
 
     @Test

@@ -1,36 +1,21 @@
-export interface SlackJobEntityAttributes {
+import { SlackJobFormEntity, FormSlackJobEntityAttributes } from './SlackJobFormEntity';
+
+export interface SlackJobEntityAttributes extends FormSlackJobEntityAttributes{
   id: string;
-  message: string;
-  timestamp: string;
+  channel: string;
   sent: boolean;
 }
 
-export class SlackJobEntity {
-  private _id: string;
-  private _message: string;
-  private _timestamp: string;
-  private _sent: boolean;
+export class SlackJobEntity extends SlackJobFormEntity{
+  public id: string;
+  public sent: boolean;
+  public channel: string;
 
   constructor(attributes: SlackJobEntityAttributes) {
-    this._message = attributes.message;
-    this._timestamp = attributes.timestamp;
-    this._sent = attributes.sent;
-    this._id = attributes.id;
-  }
+    super(attributes);
 
-  get id(): string {
-    return this._id;
-  }
-
-  get timestamp(): string {
-    return this._timestamp;
-  }
-
-  get message(): string {
-    return this._message;
-  }
-
-  get sent(): boolean {
-    return this._sent;
+    this.channel = attributes.channel;
+    this.sent = attributes.sent;
+    this.id = attributes.id;
   }
 }

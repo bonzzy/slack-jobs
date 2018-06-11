@@ -3,6 +3,7 @@ import ReduxThunk from 'redux-thunk';
 import ReduxPromise from 'redux-promise';
 import rootReducer from './reducers';
 import { State } from './interfaces/State';
+import { SlackJobFormEntity } from './entities/SlackJobFormEntity';
 
 const devtoolsCompose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers: typeof compose =
@@ -13,6 +14,15 @@ const initialState: State = {
   slackJobs: {
     data: [],
     loading: false,
+    error: '',
+  },
+  slackJobForm: {
+    loading: false,
+    error: '',
+    data: new SlackJobFormEntity({
+      message: '',
+      timestamp: '',
+    }),
   },
 };
 

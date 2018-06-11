@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.scss';
 import SlackJobsContainer from '../../containers/SlackJobsContainer';
 import { Route } from 'react-router';
-import SlackJobsFormContainer from '../../containers/SlackJobsFormContainer';
+import SlackJobsFormContainer from '../../containers/SlackJobFormContainer';
 
 export default () => (
   <div className={styles.main}>

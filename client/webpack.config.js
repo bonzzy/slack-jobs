@@ -17,7 +17,7 @@ const cssLoaders = (other) => ExtractTextPlugin.extract({
     options: {
       sourceMap: true,
       // Enable CSS Modules to scope class names
-      modules: true,
+      // modules: true,
       minimize: IS_PROD,
       importLoaders: 1 + other.length
     }
@@ -64,9 +64,9 @@ module.exports = {
     }, {
       test: /\.scss$/,
       use: cssLoaders([{
-        loader: 'sass-loader',
+        loader: `sass-loader`,
         options: {
-          sourceMap: true
+          sourceMap: true,
         }
       }])
     }, {
@@ -75,7 +75,7 @@ module.exports = {
       use: jsLoaders([])
     }, {
       test: /\.tsx?$/,
-      exclude: /node_modules/,
+      // exclude: /node_modules/,
       use: jsLoaders([{
         loader: 'ts-loader'
       }])

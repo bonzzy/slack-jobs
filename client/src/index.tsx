@@ -6,6 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from './configureStore';
 import App from './components/App';
 
+import './scss/style.scss';
+
 const store = configureStore();
 
 function renderMain(App: React.ReactType) {
