@@ -95,7 +95,17 @@ module.exports = {
           limit: 10000
         }
       }]
-    }]
+    },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: 'url-loader?limit=100000'
+      }
+
+    ]
   },
   plugins: [...[
     // Actually output extracted CSS
@@ -129,7 +139,7 @@ module.exports = {
   ])],
 
   devServer: {
-    port: 5678,
+    port: 8765,
     // Serve index.html instead of 404
     historyApiFallback: true,
     // Enable Hot Module Reloading

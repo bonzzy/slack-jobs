@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom';
 export default class NavigationComponent extends React.Component {
   render() {
     return (
-      <nav>
-        <span><Link to="/">All jobs</Link></span>
-        <span><Link to="/new">Create new</Link></span>
+      <nav className={'navigation'}>
+        <div className={'navigation__top'}>
+          <Link to="/">
+            <figure className={'navigation__logo-img'} />
+          </Link>
+        </div>
+        <div className={'navigation__tabs'}>
+          <Link to="/" className={'navigation__tabs-link'}>All jobs</Link>
+          <Link to="/new" className={'navigation__tabs-link'}>Create new</Link>
+        </div>
       </nav>
     );
   }

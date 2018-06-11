@@ -7,6 +7,7 @@ import configureStore from './configureStore';
 import App from './components/App';
 
 import './scss/style.scss';
+import '../static/fonts/Lato-Bold.ttf';
 
 const store = configureStore();
 

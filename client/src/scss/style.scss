@@ -1,4 +1,14 @@
-@import "plugins/react-datetime.scss";
+/**
+ * COMMON
+ */
+@import "common/index";
+/**
+ * PLUGINS
+ */
+@import "plugins/index";
 
-body {
-}
+/**
+ * COMPONENTS
+ */
+@import "components/index";
+
