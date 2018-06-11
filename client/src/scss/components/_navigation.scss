@@ -59,7 +59,7 @@
     }
 
     &:after {
-      background: $black;
+      background: $orange;
     }
 
     &:before{
@@ -67,7 +67,7 @@
     }
 
     &:hover{
-      color: $black;
+      color: $slack-grey;
       &:after{
         width: 100%;
         background: $orange;
