@@ -86,7 +86,7 @@ module.exports = {
       // Force TSLint before other loaders
       enforce: 'pre'
     }, {
-      test: /\.(woff2?|png|tiff?|jpe?g)$/,
+      test: /\.(woff2?|png|tiff?|jpe?g|ttf|gif)$/,
       use: [{
         // Include files as data urls
         loader: 'url-loader',
@@ -100,10 +100,10 @@ module.exports = {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
       },
-      {
-        test: /\.(woff|woff2|eot|ttf)$/,
-        loader: 'url-loader?limit=100000'
-      }
+      // {
+      //   test: /\.(woff|woff2|eot|ttf|gif)$/,
+      //   loader: 'url-loader?limit=100000'
+      // }
 
     ]
   },

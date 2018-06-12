@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import slackJobs from './slackJobs';
-import slackJobForm from './slackJobForm';
+import formSlackJobsActionTypes from './slackJobFormActionTypes';
 
 export default combineReducers({
   slackJobs,
-  slackJobForm,
+  slackJobForm: formSlackJobsActionTypes,
 });

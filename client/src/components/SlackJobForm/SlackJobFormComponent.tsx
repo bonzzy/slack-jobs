@@ -20,6 +20,12 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
     this.timestamp = this.state.momentTime.toDate().getTime() + '';
   }
 
+  getFormEntity():SlackJobFormEntity {
+    return new SlackJobFormEntity({
+      timestamp: this.timestamp,
+      message: this.message,
+    });
+  }
   public getValidDates(currentDate: moment.Moment, selectedDate?: moment.Moment) {
     const timestamp = moment(currentDate)
       .add(1, 'days')
@@ -38,7 +44,9 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
   }
 
   public createSlackJob() {
+    const formEntity = this.getFormEntity();
 
+    this.props.createSlackJob(formEntity);
   }
 
   public handleMessageChange(event: any) {
@@ -89,13 +97,14 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
       return;
     }
 
-    this.setState({
-      error: '',
-    });
+    this.createSlackJob();
   }
 
   public render() {
     const { loading, data } = this.props;
+
+    const loadingComponent = (loading) ?  (<figure className={'slackJobFormComponent__submit__loading'} />) : '';
+
     return (
       <div className={'slackJobFormComponent'}>
         <form className={'slackJobFormComponent__form'}>
@@ -120,12 +129,15 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
                     onChange={this.handleMessageChange.bind(this)} name="message">
           </textarea>
 
-          <div className={'input-container'}>
+          <div className={'input-container slackJobFormComponent__submit-container'}>
             <input
               className={'slackJobFormComponent__submit'}
               type="submit"
               onClick={this.handleSubmit.bind(this)}
-              value="Create Job" />
+              value={loading ? '' : 'Create Job'}
+              disabled={loading}
+            />
+            {loadingComponent}
           </div>
 
         </form>
