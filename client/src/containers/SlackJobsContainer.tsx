@@ -58,8 +58,10 @@ class SlackJobsContainer extends React.Component<SlackJobs.Props, SlackJobs.Stat
     return (
       <div>
         <NavigationComponent/>
-        {error}
-        <SlackJobsComponent data={data} loading={loading}/>
+        <div className={'container'}>
+          {error}
+          <SlackJobsComponent data={data} loading={loading}/>
+        </div>
       </div>
     );
   }

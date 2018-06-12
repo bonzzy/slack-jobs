@@ -3,4 +3,10 @@ body, html {
   margin:0;
   font-family: 'Lato', sans-serif;
   color: $purple;
+  background-color: $darker-white;
+}
+
+h2 {
+  font-size: 26px;
+  margin: 15px 0;
 }

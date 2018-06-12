@@ -62,19 +62,31 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
   public render() {
     const { loading, data } = this.props;
     return (
-      <div className={'slackJobForm'}>
+      <div className={'slackJobFormComponent'}>
         {this.state.error}
-        <form>
-          <div className="wrapper">
+        <form className={'slackJobFormComponent__form'}>
+
+          <h2 className={'slackJobFormComponent__h2'}>
+            Create a new scheduled Slack message
+          </h2>
+          <div className={'input-container'}>
+            <Datetime />
           </div>
-          <input type="text" onChange={this.handleMessageChange.bind(this)} name="message" />
-          <input type="text" onChange={this.handleDateChange.bind(this)} name="timestamp" />
-          <input type="submit" onClick={this.handleSubmit.bind(this)} value="Create Job" />
+          <textarea className={'slackJobFormComponent__input'}
+                    placeholder="Hi there! Write here a message you want to sent..."
+                    rows={7}
+                    onChange={this.handleMessageChange.bind(this)} name="message">
+          </textarea>
+
+          <div className={'input-container'}>
+            <input
+              className={'slackJobFormComponent__submit'}
+              type="submit"
+              onClick={this.handleSubmit.bind(this)}
+              value="Create Job" />
+          </div>
+
         </form>
-        <button onClick={this.createSlackJob.bind(this)}>Create</button>
-        <div>
-          <Datetime />
-        </div>
       </div>
     );
   }
