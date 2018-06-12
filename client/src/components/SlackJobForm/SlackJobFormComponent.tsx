@@ -7,7 +7,6 @@ import Datetime from 'react-datetime';
 
 export default class SlackJobFormComponent extends React.Component<SlackJobsForm.Props, SlackJobsForm.State> {
   public message: string = '';
-  public moment: moment.Moment = moment();
   public timestamp: string = '';
 
   constructor(props: SlackJobsForm.Props) {
