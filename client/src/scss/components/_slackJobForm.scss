@@ -2,7 +2,7 @@
   -webkit-box-shadow: 0 4px 18px 8px $light-grey;
   -moz-box-shadow: 0 4px 18px 8px $light-grey;
   box-shadow: 0 4px 18px 8px $light-grey;
-  padding: 0 20px 20px 20px;
+  padding: 20px;
   border: 1px solid $darker-white;
   background: $white;
 
@@ -33,6 +33,10 @@
       cursor: pointer;
       border: 1px solid $orange;
     }
+  }
+
+  &__error-message {
+
   }
 
   .input-container {

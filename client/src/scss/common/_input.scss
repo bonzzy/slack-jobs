@@ -10,3 +10,11 @@ input, textarea {
 input {
   height: 42px;
 }
+
+textarea {
+  padding-top: 6px;
+}
+
+input[type="text"], textarea {
+  padding-left: 10px;
+}
