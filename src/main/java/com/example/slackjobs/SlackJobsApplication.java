@@ -1,22 +1,20 @@
 package com.example.slackjobs;
 
-import com.example.slackjobs.entities.SlackJob;
-import com.example.slackjobs.repositories.SlackJobsRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 @SpringBootApplication
+@EnableScheduling
 public class SlackJobsApplication {
 
 	public static void main(String[] args) {

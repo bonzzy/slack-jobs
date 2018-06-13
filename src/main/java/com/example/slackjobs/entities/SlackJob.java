@@ -2,29 +2,42 @@ package com.example.slackjobs.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Entity
+@Table(name = "slackjob")
 public class SlackJob {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
-    private JobStatus jobStatus;
+    public JobStatus jobStatus;
 
     @NotNull
-    public String timestamp;
+    private Timestamp time;
 
     @NotNull
     public String channel;
 
     @NotNull
     public String message;
+
+    public Long getTimestamp() {
+        return time.getTime();
+    }
+
+    public JobStatus getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
     public enum JobStatus {
         PENDING,
