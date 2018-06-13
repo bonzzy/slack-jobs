@@ -2,7 +2,7 @@ package com.example.slackjobs;
 
 import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
-import com.example.slackjobs.entityManagers.SlackJobsManager;
+import com.example.slackjobs.managers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import com.example.slackjobs.stubs.SlackJobRequestStub;
 import org.junit.Before;

@@ -6,8 +6,10 @@ public class BadRequestRestResponse<T> extends RestResponse<ArrayList> {
 
     public enum ErrorMessages {
 
+        ENTITY_NOT_FOUND("Not found"),
         MESSAGE_NULL("Param message should not be empty!"),
-        TIMESTAMP_NULL("Param timestamp should not be empty!");
+        TIMESTAMP_NULL("Param timestamp should not be empty!"),
+        ID_NULL("Param id should not be empty!");
 
         private String message;
 
