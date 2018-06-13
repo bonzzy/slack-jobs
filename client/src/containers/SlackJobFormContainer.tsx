@@ -2,21 +2,40 @@ import React from 'react';
 import { connect } from 'react-redux';
 import NavigationComponent from '../components/NavigationComponent';
 import SlackJobFormComponent from '../components/SlackJobForm/SlackJobFormComponent';
-import { Dispatch } from 'redux';
 import { SlackJobsForm } from '../interfaces/SlackJobsForm';
 import { State } from '../interfaces/State';
 import { SlackJobFormAction } from '../actions/SlackJobFormAction';
 import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
+import { DispatchResponse, DispatchResponseAttributes } from '../utils/DispatchResponse';
 
-const mapDispatchToProps = (dispatch: Dispatch<Promise<any>>): SlackJobsForm.DispatchMethods => {
+const mapDispatchToProps = (dispatch: any): SlackJobsForm.DispatchMethods => {
   return {
     test: () => {
       console.log('Form Test!');
     },
 
-    createSlackJob: () => {
+    createSlackJob: (slackJobForm: SlackJobFormEntity) => {
 
       dispatch(SlackJobFormAction.loading());
+      dispatch(SlackJobFormAction.saveSlackJob(slackJobForm))
+        .then((dispatchResponse: DispatchResponseAttributes<SlackJobsForm.State>) => {
+          const dispatchResponseUtil = new DispatchResponse<SlackJobsForm.State>(dispatchResponse);
+
+          if (dispatchResponseUtil.isValid() === false) {
+
+            dispatch(SlackJobFormAction.errorNetwork());
+            return;
+          }
+
+          const response = dispatchResponseUtil.getPayload();
+
+          if (response.error !== undefined) {
+            dispatch(SlackJobFormAction.errorPost());
+            return;
+          }
+
+          dispatch(SlackJobFormAction.successPost());
+        });
 
     },
 

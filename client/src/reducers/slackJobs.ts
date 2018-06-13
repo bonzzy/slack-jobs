@@ -2,6 +2,7 @@ import { SlackJobs } from '../interfaces/SlackJobs';
 import State = SlackJobs.State;
 
 export enum SlackJobsActionTypes {
+  POST_SLACK_ERROR_MESSAGE = 'POST_SLACK_ERROR_MESSAGE',
   SAVE_SLACK_JOB = 'SAVE_SLACK_JOB',
   NETWORK_PROBLEM = 'NETWORK_PROBLEM',
   GET_SLACK_ERROR_MESSAGE = 'GET_SLACK_ERROR_MESSAGE',

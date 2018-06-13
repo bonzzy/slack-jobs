@@ -21,22 +21,23 @@ export abstract class ApiService {
   }
 
   protected postRequest<T>(apiUrl: ApiRoutes, body: T): Promise<ApiResponse<T>> {
-    return new Promise((resolve, reject) => {
-      const options = {
-        body,
-        headers: {
-          accept: 'application/json',
-          'content-type': 'application/x-www-form-urlencoded',
-        },
-      };
+    const queryArr: string[] = [];
 
-      axios.post(`${this.getBaseUrl()}${apiUrl}`, options).then((res: AxiosResponse<T>) => {
-        if (res.status === 200) {
+    for (const key in body) {
+      const value = body[key];
+      queryArr.push(`${key}=${value}`);
+    }
+
+    return new Promise((resolve, reject) => {
+      axios.post(`${this.getBaseUrl()}${apiUrl}`, queryArr.join('&')).then((res: AxiosResponse<T>) => {
+        if (res.status === 201) {
           resolve(res.data);
           return;
         }
 
         reject(res.data);
+      }).catch((err) => {
+        console.log('err', err);
       });
     });
   }

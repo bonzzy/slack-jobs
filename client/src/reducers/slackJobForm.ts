@@ -2,12 +2,13 @@ import { SlackJobs } from '../interfaces/SlackJobs';
 import State = SlackJobs.State;
 
 export enum SlackJobFormActionTypes {
+  SAVE_NETWORK_PROBLEM = 'SAVE_NETWORK_PROBLEM',
   SAVE_SLACK_JOB = 'SAVE_SLACK_JOB',
   SAVE_SLACK_JOB_SUCCESS = 'SAVE_SLACK_JOB_SUCCESS',
   SAVE_LOADING = 'SAVE_LOADING',
   SAVE_SLACK_JOB_ERROR_MESSAGE = 'SAVE_SLACK_JOB_ERROR_MESSAGE',
 }
-const formSlackJobsActionTypes = (state: SlackJobs.State, action: any): State => {
+const slackJobForm = (state: SlackJobs.State, action: any): State => {
 
   switch (action.type) {
     case SlackJobFormActionTypes.SAVE_SLACK_JOB:
@@ -21,6 +22,7 @@ const formSlackJobsActionTypes = (state: SlackJobs.State, action: any): State =>
         ...state,
         data: action.payload.data,
         loading: false,
+        error: 'Job created!',
       };
 
     case SlackJobFormActionTypes.SAVE_LOADING:
@@ -36,6 +38,13 @@ const formSlackJobsActionTypes = (state: SlackJobs.State, action: any): State =>
         error: state.error,
       };
 
+    case SlackJobFormActionTypes.SAVE_NETWORK_PROBLEM:
+      return {
+        ...state,
+        loading: false,
+        error: state.error,
+      };
+
     default:
       return {
         ...state,
@@ -44,4 +53,4 @@ const formSlackJobsActionTypes = (state: SlackJobs.State, action: any): State =>
 
 };
 
-export default formSlackJobsActionTypes;
+export default slackJobForm;
