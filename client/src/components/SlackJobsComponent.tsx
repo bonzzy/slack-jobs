@@ -39,32 +39,29 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
               Remove
             </div>
           </div>
-          <div className={'slack-table__row slack-table__row--content'}>
-            <div className={'slack-table__column slack-table__column--4'}>
-              Neka jako duga
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Time
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Channel
-            </div>
-            <div className={'slack-table__column'}>
-              Status
-            </div>
-            <div className={'slack-table__column'}>
-              Remove
-            </div>
-          </div>
+          {data.map((slackJob: SlackJobEntity) => {
+            return (
+              <div className={'slack-table__row slack-table__row--content'} key={slackJob.id}>
+                <div className={'slack-table__column slack-table__column--4'}>
+                  {slackJob.message}
+                </div>
+                <div className={'slack-table__column slack-table__column--2'}>
+                  {slackJob.timestamp}
+                </div>
+                <div className={'slack-table__column slack-table__column--2'}>
+                  {slackJob.channel}
+                </div>
+                <div className={'slack-table__column'}>
+                  {slackJob.sent ? 'Not send' : 'Sent'}
+                </div>
+                <div className={'slack-table__column'}>
+                  Remove
+                </div>
+              </div>
+            );
+          })}
         </div>
         {loadingComponent}
-        {data.map((slackJob: SlackJobEntity) => {
-          return (
-            <div key={slackJob.id}>
-              {slackJob.message}
-            </div>
-          );
-        })}
       </div>
     );
   }
