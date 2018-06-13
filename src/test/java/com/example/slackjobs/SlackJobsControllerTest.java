@@ -2,7 +2,7 @@ package com.example.slackjobs;
 
 import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
-import com.example.slackjobs.entityManagers.SlackJobsManager;
+import com.example.slackjobs.managers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import com.example.slackjobs.stubs.SlackJobRequestStub;
 import org.junit.Before;
@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 public class SlackJobsControllerTest {
 
     private String defaultSlackJobMessage = "message";
-    private String defaultSlackJobChannel = "channel";
-    private String defaultSlackJobtimestamp = "585883882";
+    private String defaultSlackJobChannel = "Channel name";
+    private Timestamp defaultSlackJobtimestamp = new Timestamp(14087377715801l);
 
 
     private List<SlackJob> slackJobs = new ArrayList<>();
@@ -57,7 +58,7 @@ public class SlackJobsControllerTest {
 
         SlackJob slackJob = new SlackJob();
         slackJob.message = defaultSlackJobMessage;
-        slackJob.timestamp = defaultSlackJobtimestamp;
+        slackJob.setTime(defaultSlackJobtimestamp);
         slackJob.channel = defaultSlackJobChannel;
 
         SlackJobsManager slackJobsManager = new SlackJobsManager(repository);
@@ -73,17 +74,17 @@ public class SlackJobsControllerTest {
                 .andExpect(jsonPath("$.data", hasSize(1)))
                 .andExpect(jsonPath("$.data[0].message", is(defaultSlackJobMessage)))
                 .andExpect(jsonPath("$.data[0].channel", is(defaultSlackJobChannel)))
-                .andExpect(jsonPath("$.data[0].timestamp", is(defaultSlackJobtimestamp)));
+                .andExpect(jsonPath("$.data[0].timestamp", is(defaultSlackJobtimestamp.getTime())));
     }
 
     @Test
     public void badRequestWhenMessageIsNotSet() throws Exception {
-        String timestamp = defaultSlackJobtimestamp;
+        Timestamp timestamp = defaultSlackJobtimestamp;
 
         mockMvc.perform(
                 post("/api/jobs/")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("timestamp", timestamp)
+                        .param("timestamp", timestamp.toString())
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.data", hasSize(0)))
@@ -108,20 +109,20 @@ public class SlackJobsControllerTest {
     public void createNewSlackJob() throws Exception {
         SlackJobRequestStub slackJob = new SlackJobRequestStub();
         slackJob.message = "Test message";
-        slackJob.timestamp = defaultSlackJobtimestamp;
+        slackJob.setTime(defaultSlackJobtimestamp);
 
         mockMvc.perform(
                 post("/api/jobs/")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("message", slackJob.message)
-                        .param("timestamp", slackJob.timestamp)
+                        .param("timestamp", slackJob.getTimestamp().toString())
         )
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.data", notNullValue()))
                 .andExpect(jsonPath("$.data.id", notNullValue()))
                 .andExpect(jsonPath("$.data.message", is(slackJob.message)))
-                .andExpect(jsonPath("$.data.timestamp", is(slackJob.timestamp)));
+                .andExpect(jsonPath("$.data.timestamp", is(slackJob.getTimestamp())));
     }
 
 }
