@@ -5,14 +5,18 @@ import SlackJobFormComponent from '../components/SlackJobForm/SlackJobFormCompon
 import { Dispatch } from 'redux';
 import { SlackJobsForm } from '../interfaces/SlackJobsForm';
 import { State } from '../interfaces/State';
+import { SlackJobFormAction } from '../actions/SlackJobFormAction';
+import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 
 const mapDispatchToProps = (dispatch: Dispatch<Promise<any>>): SlackJobsForm.DispatchMethods => {
   return {
     test: () => {
-      console.log('Form Test');
+      console.log('Form Test!');
     },
 
     createSlackJob: () => {
+
+      dispatch(SlackJobFormAction.loading());
 
     },
 
@@ -42,23 +46,26 @@ class SlackJobFormContainer extends React.Component<SlackJobsForm.Props, SlackJo
 
   render() {
     const { error, loading, data } = this.props;
+
     return (
       <div>
         <NavigationComponent/>
-        <SlackJobFormComponent
-          createSlackJob={() => { this.createSlackJob(); }}
-          setFormIsInValid={() => this.setFormIsInValid.bind(this)}
-          setFormIsValid={() => this.setFormIsValid.bind(this)}
-          error={error}
-          loading={loading}
-          data={data}
-        />
+        <div className={'container container--justify-center container--simple-padding-top'}>
+          <SlackJobFormComponent
+            createSlackJob={this.createSlackJob.bind(this)}
+            setFormIsInValid={() => this.setFormIsInValid.bind(this)}
+            setFormIsValid={() => this.setFormIsValid.bind(this)}
+            error={error}
+            loading={loading}
+            data={data}
+          />
+        </div>
       </div>
     );
   }
 
-  private createSlackJob() {
-    console.log('called method createSlackJob');
+  private createSlackJob(entity: SlackJobFormEntity) {
+    this.props.createSlackJob(entity);
   }
 
   private setFormIsValid() {

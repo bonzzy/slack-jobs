@@ -58,8 +58,9 @@ class SlackJobsContainer extends React.Component<SlackJobs.Props, SlackJobs.Stat
     return (
       <div>
         <NavigationComponent/>
-        {error}
-        <SlackJobsComponent data={data} loading={loading}/>
+        <div className={'container container--justify-center container--simple-padding-top'}>
+          <SlackJobsComponent data={data} loading={loading} error={error}/>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,20 @@
+input, textarea {
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid $light-grey;
+  resize: none;
+  width: 300px;
+  margin: 2px 0;
+}
+
+input {
+  height: 42px;
+}
+
+textarea {
+  padding-top: 6px;
+}
+
+input[type="text"], textarea {
+  padding-left: 10px;
+}

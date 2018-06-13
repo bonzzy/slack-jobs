@@ -13,7 +13,7 @@ export class SlackJobFormValidator {
     message: '',
   };
 
-  public maxMessageSize = 100;
+  public maxMessageSize = 500;
   public minMessageSize = 5;
 
   constructor(private slackJobFormEntity: SlackJobFormEntity) {
@@ -43,14 +43,14 @@ export class SlackJobFormValidator {
   private validateMessage() {
     if (this.slackJobFormEntity.message.length < this.minMessageSize) {
       this.messageValidation.valid = false;
-      this.messageValidation.message = `Message should have at least ${this.minMessageSize}!`;
+      this.messageValidation.message = `Message should have at least ${this.minMessageSize} characters!`;
 
       return;
     }
 
     if (this.slackJobFormEntity.message.length > this.maxMessageSize) {
       this.messageValidation.valid = false;
-      this.messageValidation.message = `Message should have less than ${this.maxMessageSize}!`;
+      this.messageValidation.message = `Message should have less than ${this.maxMessageSize} characters!`;
 
       return;
     }

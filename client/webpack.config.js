@@ -86,7 +86,7 @@ module.exports = {
       // Force TSLint before other loaders
       enforce: 'pre'
     }, {
-      test: /\.(woff2?|png|tiff?|jpe?g)$/,
+      test: /\.(woff2?|png|tiff?|jpe?g|ttf|gif)$/,
       use: [{
         // Include files as data urls
         loader: 'url-loader',
@@ -95,7 +95,17 @@ module.exports = {
           limit: 10000
         }
       }]
-    }]
+    },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      // {
+      //   test: /\.(woff|woff2|eot|ttf|gif)$/,
+      //   loader: 'url-loader?limit=100000'
+      // }
+
+    ]
   },
   plugins: [...[
     // Actually output extracted CSS
@@ -129,7 +139,7 @@ module.exports = {
   ])],
 
   devServer: {
-    port: 5678,
+    port: 8765,
     // Serve index.html instead of 404
     historyApiFallback: true,
     // Enable Hot Module Reloading

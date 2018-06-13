@@ -59,7 +59,7 @@ describe('SlackJobFormValidator', () => {
   it('should return false when calling isTimestampValid() and timestamp is old', () => {
     const slackJob = new SlackJobFormEntity({
       message: '12',
-      timestamp: moment().subtract(1, 'minutes').toDate().getTime() + '',
+      timestamp: moment().subtract(1, 'hours').toDate().getTime() + '',
     });
     const formValidator = new SlackJobFormValidator(slackJob);
     formValidator.validate();

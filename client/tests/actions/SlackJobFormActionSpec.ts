@@ -7,7 +7,7 @@ import axios from'axios';
 import { SlackJobsActionTypes } from '../../src/reducers/slackJobs';
 import { SlackJobEntity } from '../../src/entities/SlackJobEntity';
 import { SlackJobFormEntity } from '../../src/entities/SlackJobFormEntity';
-import { FormSlackJobsAction } from '../../src/actions/FormSlackJobsAction';
+import { SlackJobFormAction } from '../../src/actions/SlackJobFormAction';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -49,7 +49,7 @@ describe('SlackJobsActions', () => {
   it('should create SAVE_SLACK_JOB when calling saveSlackJob action', (done) => {
     const store = mockStore({ foo: {} });
 
-    store.dispatch(FormSlackJobsAction.saveSlackJob(simpleFormSlackJob)).payload.then(() => {
+    store.dispatch(SlackJobFormAction.saveSlackJob(simpleFormSlackJob)).payload.then(() => {
       const actions = store.getActions();
 
       expect(actions[0].type).toEqual(SlackJobsActionTypes.SAVE_SLACK_JOB);

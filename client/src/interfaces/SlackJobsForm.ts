@@ -1,4 +1,5 @@
 import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
+import * as moment from 'moment';
 
 export namespace SlackJobsForm {
 
@@ -6,6 +7,7 @@ export namespace SlackJobsForm {
     data?: SlackJobFormEntity;
     loading?: boolean;
     error?: string;
+    momentTime?: moment.Moment;
   }
 
   export interface StateProps {
