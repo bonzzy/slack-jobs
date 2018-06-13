@@ -6,7 +6,7 @@ import { Dispatch } from 'redux';
 import { SlackJobsForm } from '../interfaces/SlackJobsForm';
 import { State } from '../interfaces/State';
 import { SlackJobFormAction } from '../actions/SlackJobFormAction';
-import {SlackJobFormEntity} from '../entities/SlackJobFormEntity';
+import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 
 const mapDispatchToProps = (dispatch: Dispatch<Promise<any>>): SlackJobsForm.DispatchMethods => {
   return {
