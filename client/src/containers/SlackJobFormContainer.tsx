@@ -50,7 +50,7 @@ class SlackJobFormContainer extends React.Component<SlackJobsForm.Props, SlackJo
     return (
       <div>
         <NavigationComponent/>
-        <div className={'container container--justify-center'}>
+        <div className={'container container--justify-center container--simple-padding-top'}>
           <SlackJobFormComponent
             createSlackJob={this.createSlackJob.bind(this)}
             setFormIsInValid={() => this.setFormIsInValid.bind(this)}

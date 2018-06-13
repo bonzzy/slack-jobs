@@ -5,13 +5,58 @@ import { SlackJobEntity } from '../entities/SlackJobEntity';
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
   render() {
-    const loading = this.props.loading;
+    const { loading, error } = this.props;
     const data = this.props.data ? this.props.data : [];
 
     const loadingComponent = loading ? 'loading...' : '';
+    const errorCssClassModifier = error.length > 0 ? 'slackJobsComponent__error--active' : '';
 
     return (
-      <div>
+      <div className={'slackJobsComponent'}>
+        <div className={'slack-table'}>
+          <div className={'slack-table__header'}>
+            <div>
+              {this.props.data.length} Slack jobs
+            </div>
+            <div className={`slackJobsComponent__error ${errorCssClassModifier}`}>
+              {error}
+            </div>
+          </div>
+          <div className={'slack-table__row'}>
+            <div className={'slack-table__column slack-table__column--4'}>
+              Message
+            </div>
+            <div className={'slack-table__column slack-table__column--2'}>
+              Time
+            </div>
+            <div className={'slack-table__column slack-table__column--2'}>
+              Channel
+            </div>
+            <div className={'slack-table__column'}>
+              Status
+            </div>
+            <div className={'slack-table__column'}>
+              Remove
+            </div>
+          </div>
+          <div className={'slack-table__row slack-table__row--content'}>
+            <div className={'slack-table__column slack-table__column--4'}>
+              Neka jako duga
+            </div>
+            <div className={'slack-table__column slack-table__column--2'}>
+              Time
+            </div>
+            <div className={'slack-table__column slack-table__column--2'}>
+              Channel
+            </div>
+            <div className={'slack-table__column'}>
+              Status
+            </div>
+            <div className={'slack-table__column'}>
+              Remove
+            </div>
+          </div>
+        </div>
         {loadingComponent}
         {data.map((slackJob: SlackJobEntity) => {
           return (
