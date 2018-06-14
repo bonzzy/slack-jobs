@@ -1,7 +1,7 @@
 .slack-content-table {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   .slack-content {
     $text-padding: 0 20px;
@@ -54,7 +54,6 @@
 
     &__section-content{
       margin: 10px 0 0;
-      padding:0;
       padding: $text-padding;
 
       @media screen and (max-width: $breakpoint){
