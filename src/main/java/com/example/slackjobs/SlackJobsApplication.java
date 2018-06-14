@@ -26,9 +26,6 @@ public class SlackJobsApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SlackJobsApplication.class, args);
-
-//		String valueEnv = environment.getProperty("webhook");
-
 	}
 
 	@Override
