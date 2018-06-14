@@ -68,6 +68,7 @@ public class SlackJob {
                 "id=" + id +
                 "channel=" + channel +
                 "jobStatus=" + jobStatus +
+                "timestamp=" + getTimestamp() +
                 ", name='" + message + '\'' +
                 '}';
     }

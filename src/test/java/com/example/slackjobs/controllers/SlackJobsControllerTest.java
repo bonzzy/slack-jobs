@@ -1,5 +1,6 @@
-package com.example.slackjobs;
+package com.example.slackjobs.controllers;
 
+import com.example.slackjobs.SlackJobsApplication;
 import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
 import com.example.slackjobs.managers.SlackJobsManager;
