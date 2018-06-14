@@ -72,6 +72,7 @@
       margin: 0;
       background: $beige;
       padding: $mobile-text-padding;
+      font-weight: bold;
     }
 
     &__section-content{
@@ -128,12 +129,11 @@
       color: $white;
       position: relative;
       top: 0;
-      width: 100%;
+      left: auto;
       height: auto;
       transition-delay: 0.1s;
       transition: transform 0.3s ease-in-out;
-      display: block;
+      display: inline-block;
     }
-
   }
 }
