@@ -37,7 +37,7 @@ export abstract class ApiService {
 
         reject(res.data);
       }).catch((err) => {
-        console.log('err', err);
+        reject(err);
       });
     });
   }

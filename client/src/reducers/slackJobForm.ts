@@ -1,5 +1,6 @@
 import { SlackJobs } from '../interfaces/SlackJobs';
 import State = SlackJobs.State;
+import {SlackJobFormActionMessages} from "../actions/SlackJobFormAction";
 
 export enum SlackJobFormActionTypes {
   SAVE_NETWORK_PROBLEM = 'SAVE_NETWORK_PROBLEM',
@@ -22,7 +23,7 @@ const slackJobForm = (state: SlackJobs.State, action: any): State => {
         ...state,
         data: action.payload.data,
         loading: false,
-        error: 'Job created!',
+        error: SlackJobFormActionMessages.SAVED_SUCCESS,
       };
 
     case SlackJobFormActionTypes.SAVE_LOADING:
@@ -42,7 +43,7 @@ const slackJobForm = (state: SlackJobs.State, action: any): State => {
       return {
         ...state,
         loading: false,
-        error: state.error,
+        error: action.payload,
       };
 
     default:

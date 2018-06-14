@@ -20,6 +20,14 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
     this.timestamp = this.state.momentTime.toDate().getTime() + '';
   }
 
+  componentDidMount() {
+    const { error } = this.props;
+
+    this.setState({
+      error,
+    });
+  }
+
   getFormEntity():SlackJobFormEntity {
     return new SlackJobFormEntity({
       timestamp: this.timestamp,
@@ -51,9 +59,21 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
 
   public handleMessageChange(event: any) {
     this.message = event.target.value;
+
+    if (this.state.error.length > 0) {
+      this.setState({
+        error: '',
+      });
+    }
   }
 
   public handleDateChange(currentDate: moment.Moment) {
+    if (this.state.error.length > 0) {
+      this.setState({
+        error: '',
+      });
+    }
+
     this.timestamp = currentDate.toDate().getTime() + '';
     const now = moment();
     const addMinutes = 1;
@@ -101,15 +121,16 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
   }
 
   public render() {
-    const { loading, data } = this.props;
+    const { loading, data, error } = this.props;
 
     const loadingComponent = (loading) ?  (<figure className={'slackJobFormComponent__submit__loading'} />) : '';
+    const outputError = (this.state.error.length === 0) ? error : this.state.error;
 
     return (
       <div className={'slackJobFormComponent'}>
         <form className={'slackJobFormComponent__form'}>
           <span className={'slackJobFormComponent__error-message'}>
-            {this.state.error}
+            {outputError}
           </span>
           <h2 className={'slackJobFormComponent__h2'}>
             Create a new scheduled Slack message

@@ -38,14 +38,6 @@ const mapDispatchToProps = (dispatch: any): SlackJobsForm.DispatchMethods => {
         });
 
     },
-
-    setFormIsValid: (): void => {
-
-    },
-
-    setFormIsInValid: (message: string): void => {
-
-    },
   };
 };
 
@@ -59,10 +51,6 @@ const mapStateToProps = (state: State, props: SlackJobsForm.Props): SlackJobsFor
 
 class SlackJobFormContainer extends React.Component<SlackJobsForm.Props, SlackJobsForm.State> {
 
-  componentDidMount() {
-    this.props.test();
-  }
-
   render() {
     const { error, loading, data } = this.props;
 
@@ -72,8 +60,6 @@ class SlackJobFormContainer extends React.Component<SlackJobsForm.Props, SlackJo
         <div className={'container container--justify-center container--simple-padding-top'}>
           <SlackJobFormComponent
             createSlackJob={this.createSlackJob.bind(this)}
-            setFormIsInValid={() => this.setFormIsInValid.bind(this)}
-            setFormIsValid={() => this.setFormIsValid.bind(this)}
             error={error}
             loading={loading}
             data={data}
@@ -85,14 +71,6 @@ class SlackJobFormContainer extends React.Component<SlackJobsForm.Props, SlackJo
 
   private createSlackJob(entity: SlackJobFormEntity) {
     this.props.createSlackJob(entity);
-  }
-
-  private setFormIsValid() {
-    console.log('form validation is valid');
-  }
-
-  private setFormIsInValid(message: string) {
-    console.log('form validation not valid');
   }
 }
 

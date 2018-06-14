@@ -4,6 +4,11 @@ import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 import { SlackJobFormActionTypes } from '../reducers/slackJobForm';
 import { SlackJobsActionTypes } from '../reducers/slackJobs';
 
+export enum SlackJobFormActionMessages {
+  NETWORK_PROBLEM = 'Problem with network!',
+  SAVED_SUCCESS = 'Job is created',
+}
+
 export class SlackJobFormAction {
 
   public static saveSlackJob(
@@ -44,7 +49,7 @@ export class SlackJobFormAction {
 
   static errorNetwork() {
     return {
-      payload: SlackJobFormActionTypes.SAVE_NETWORK_PROBLEM,
+      payload: SlackJobFormActionMessages.NETWORK_PROBLEM,
       type: SlackJobFormActionTypes.SAVE_NETWORK_PROBLEM,
     };
   }
