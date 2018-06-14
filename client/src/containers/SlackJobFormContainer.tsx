@@ -10,10 +10,6 @@ import { DispatchResponse, DispatchResponseAttributes } from '../utils/DispatchR
 
 const mapDispatchToProps = (dispatch: any): SlackJobsForm.DispatchMethods => {
   return {
-    test: () => {
-      console.log('Form Test!');
-    },
-
     createSlackJob: (slackJobForm: SlackJobFormEntity) => {
 
       dispatch(SlackJobFormAction.loading());
