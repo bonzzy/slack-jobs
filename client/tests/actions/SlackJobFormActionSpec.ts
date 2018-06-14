@@ -41,7 +41,7 @@ describe('SlackJobsActions', () => {
   beforeAll(() => {
     const apiService = new SlackJobsApiService();
 
-    mockAxios.onPost(`${apiService.getBaseUrl()}${ApiRoutes.CREATE_JOB}`).reply(200, {
+    mockAxios.onPost(`${apiService.getBaseUrl()}${ApiRoutes.CREATE_JOB}`).reply(201, {
       data: simpleFormSlackJob,
     });
   });

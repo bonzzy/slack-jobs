@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { SlackJobs } from '../interfaces/SlackJobs';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
+import moment from 'moment';
 
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
+  public deleteRow(index: number) {
+    this.props.deleteSlackJob(index, this.props.data);
+  }
   render() {
     const { loading, error } = this.props;
     const data = this.props.data ? this.props.data : [];
@@ -13,58 +17,46 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
 
     return (
       <div className={'slackJobsComponent'}>
-        <div className={'slack-table'}>
-          <div className={'slack-table__header'}>
-            <div>
-              {this.props.data.length} Slack jobs
-            </div>
-            <div className={`slackJobsComponent__error ${errorCssClassModifier}`}>
-              {error}
-            </div>
-          </div>
-          <div className={'slack-table__row'}>
-            <div className={'slack-table__column slack-table__column--4'}>
-              Message
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Time
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Channel
-            </div>
-            <div className={'slack-table__column'}>
-              Status
-            </div>
-            <div className={'slack-table__column'}>
-              Remove
-            </div>
-          </div>
-          <div className={'slack-table__row slack-table__row--content'}>
-            <div className={'slack-table__column slack-table__column--4'}>
-              Neka jako duga
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Time
-            </div>
-            <div className={'slack-table__column slack-table__column--2'}>
-              Channel
-            </div>
-            <div className={'slack-table__column'}>
-              Status
-            </div>
-            <div className={'slack-table__column'}>
-              Remove
-            </div>
-          </div>
-        </div>
         {loadingComponent}
-        {data.map((slackJob: SlackJobEntity) => {
-          return (
-            <div key={slackJob.id}>
-              {slackJob.message}
-            </div>
-          );
-        })}
+        <div className={'slack-content-table'}>
+          {
+            data.map((slackJob: SlackJobEntity, index: number) => {
+              return (
+                <div className={'slack-content'}>
+                  <section className={'slack-content__message slack-content__big-item'}>
+                    <h3 className={'slack-content__section-title msg-title'}>Message</h3>
+                    <p className={'slack-content__section-content'}>
+                      {slackJob.message}
+                    </p>
+                  </section>
+                  <section className={'slack-content__small-items'}>
+                    <div className={'slack-content__time slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Time</h3>
+                      <p className={'slack-content__section-content'}>
+                        {moment(slackJob.timestamp).format('MM/DD/YYYY HH:MM')}
+                      </p>
+                    </div>
+                    <div className={'slack-content__chanel slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Chanel</h3>
+                      <p className={'slack-content__section-content'}>{slackJob.channel}</p>
+                    </div>
+                    <div className={'slack-content__status slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Status</h3>
+                      <p className={'slack-content__section-content'}>
+                        {(slackJob.sent) ? 'Sent' : 'Pending'}
+                      </p>
+                    </div>
+                    <a href="#"
+                       className={'slack-content__button'}
+                       onClick={() => { this.deleteRow(index); }}>
+                      <span className={'slack-content__button-text'}>&#x2715;</span>
+                    </a>
+                  </section>
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
     );
   }

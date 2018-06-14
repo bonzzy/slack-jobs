@@ -1,12 +1,15 @@
 package com.example.slackjobs.utils;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
 
 import static org.junit.Assert.assertEquals;
 
-public class TimestampConverterUtil {
+@RunWith(SpringRunner.class)
+public class TimestampConverterUtilTest {
 
     @Test
     public void parseStringTimestamp() throws Exception {

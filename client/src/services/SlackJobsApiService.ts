@@ -4,8 +4,9 @@ import { ApiResponse } from '../interfaces/Api';
 import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 
 export enum ApiRoutes {
-  CREATE_JOB = '/',
+  CREATE_JOB = '/jobs/',
   ALL_JOBS = '/jobs/',
+  DELETE_JOB = '/jobs/',
 }
 
 export class SlackJobsApiService extends ApiService {
@@ -14,7 +15,11 @@ export class SlackJobsApiService extends ApiService {
     return this.getRequest<SlackJobEntity[]>(ApiRoutes.ALL_JOBS);
   }
 
-  create<SlackJobEntity>(formSlackJob: SlackJobFormEntity) {
-    return this.postRequest<SlackJobFormEntity>(ApiRoutes.CREATE_JOB, formSlackJob);
+  create(slackJobForm: SlackJobFormEntity) {
+    return this.postRequest<SlackJobFormEntity>(ApiRoutes.CREATE_JOB, slackJobForm);
+  }
+
+  delete(slackJobEntity: SlackJobEntity) {
+    return this.deleteRequest<SlackJobEntity[]>(ApiRoutes.DELETE_JOB, slackJobEntity.id);
   }
 }

@@ -1,10 +1,12 @@
-package com.example.slackjobs;
+package com.example.slackjobs.controllers;
 
+import com.example.slackjobs.SlackJobsApplication;
 import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
 import com.example.slackjobs.managers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import com.example.slackjobs.stubs.SlackJobRequestStub;
+import com.example.slackjobs.validators.SlackJobValidator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @WebAppConfiguration
 public class SlackJobsControllerTest {
 
-    private String defaultSlackJobMessage = "message";
+    private String defaultSlackJobMessage = "Some valid message";
     private String defaultSlackJobChannel = "Channel name";
     private Timestamp defaultSlackJobtimestamp = new Timestamp(14087377715801l);
 
@@ -84,11 +86,11 @@ public class SlackJobsControllerTest {
         mockMvc.perform(
                 post("/api/jobs/")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("timestamp", timestamp.toString())
+                        .param("timestamp", timestamp.getTime() + "")
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.data", hasSize(0)))
-                .andExpect(jsonPath("$.error", is(BadRequestRestResponse.ErrorMessages.MESSAGE_NULL.getMessage())));
+                .andExpect(jsonPath("$.error", is(SlackJobValidator.ErrorMessages.MESSAGE_NULL.getMessage())));
     }
 
     @Test
@@ -102,7 +104,7 @@ public class SlackJobsControllerTest {
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.data", hasSize(0)))
-                .andExpect(jsonPath("$.error", is(BadRequestRestResponse.ErrorMessages.TIMESTAMP_NULL.getMessage())));
+                .andExpect(jsonPath("$.error", is(SlackJobValidator.ErrorMessages.TIMESTAMP_NOT_VALID.getMessage())));
     }
 
     @Test

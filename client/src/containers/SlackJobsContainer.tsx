@@ -6,6 +6,7 @@ import { SlackJobsAction } from '../actions/SlackJobsAction';
 import { State } from '../interfaces/State';
 import { SlackJobs } from '../interfaces/SlackJobs';
 import { DispatchResponse, DispatchResponseAttributes } from '../utils/DispatchResponse';
+import { SlackJobEntity } from '../entities/SlackJobEntity';
 
 const mapDispatchToProps = (dispatch: any): SlackJobs.DispatchMethods => {
   return {
@@ -35,6 +36,13 @@ const mapDispatchToProps = (dispatch: any): SlackJobs.DispatchMethods => {
           dispatch(SlackJobsAction.errorGet(err.message));
         });
     },
+
+    deleteSlackJob(index: number, allSlackJobs: SlackJobEntity[]) {
+      dispatch(SlackJobsAction.deleteSlackJob(index, allSlackJobs))
+        .then((dispatchResponse: DispatchResponseAttributes<any>) => {
+          dispatch(SlackJobsAction.successDelete(index, allSlackJobs));
+        });
+    },
   };
 };
 
@@ -53,13 +61,13 @@ class SlackJobsContainer extends React.Component<SlackJobs.Props, SlackJobs.Stat
   }
 
   render(): JSX.Element  {
-    const { data, loading, error } = this.props;
+    const { data, loading, error, deleteSlackJob } = this.props;
 
     return (
       <div>
         <NavigationComponent/>
         <div className={'container container--justify-center container--simple-padding-top'}>
-          <SlackJobsComponent data={data} loading={loading} error={error}/>
+          <SlackJobsComponent data={data} loading={loading} error={error} deleteSlackJob={deleteSlackJob}/>
         </div>
       </div>
     );

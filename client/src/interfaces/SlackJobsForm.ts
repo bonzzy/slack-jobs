@@ -20,10 +20,7 @@ export namespace SlackJobsForm {
   }
 
   export interface DispatchMethods {
-    test?: () => void;
     createSlackJob?: (slackJob: SlackJobFormEntity) => void;
-    setFormIsValid?: () => void;
-    setFormIsInValid?: (messsage: string) => void;
   }
 
 }
