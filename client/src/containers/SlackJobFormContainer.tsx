@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import NavigationComponent from '../components/NavigationComponent';
-import SlackJobFormComponent from '../components/SlackJobForm/SlackJobFormComponent';
+import SlackJobFormComponent from '../components/SlackJobFormComponent';
 import { SlackJobsForm } from '../interfaces/SlackJobsForm';
 import { State } from '../interfaces/State';
 import { SlackJobFormAction } from '../actions/SlackJobFormAction';

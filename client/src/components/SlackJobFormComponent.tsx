@@ -1,9 +1,10 @@
 import React from 'react';
-import { SlackJobsForm } from '../../interfaces/SlackJobsForm';
-import { SlackJobFormValidator } from '../../validators/SlackJobFormValidator';
-import { SlackJobFormEntity } from '../../entities/SlackJobFormEntity';
+import { SlackJobsForm } from '../interfaces/SlackJobsForm';
+import { SlackJobFormValidator } from '../validators/SlackJobFormValidator';
+import { SlackJobFormEntity } from '../entities/SlackJobFormEntity';
 import moment from 'moment';
 import Datetime from 'react-datetime';
+import LoadingComponent from './LoadingComponent';
 
 export default class SlackJobFormComponent extends React.Component<SlackJobsForm.Props, SlackJobsForm.State> {
   public message: string = '';
@@ -66,7 +67,7 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
               value={loading ? '' : 'Create Job'}
               disabled={loading}
             />
-            {loadingComponent}
+            {(loading) ? <LoadingComponent/> : ''}
           </div>
 
         </form>

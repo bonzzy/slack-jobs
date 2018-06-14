@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SlackJobs } from '../interfaces/SlackJobs';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
+import moment from 'moment';
 
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
@@ -31,7 +32,7 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
                 <section className={'slack-content__small-items'}>
                   <div className={'slack-content__time slack-content__small-item'}>
                     <h3 className={'slack-content__section-title'}>Time</h3>
-                    <p className={'slack-content__section-content'}>{slackJob.timestamp}</p>
+                    <p className={'slack-content__section-content'}>{moment(slackJob.timestamp).toDate().getDate()}</p>
                   </div>
                   <div className={'slack-content__chanel slack-content__small-item'}>
                     <h3 className={'slack-content__section-title'}>Chanel</h3>
