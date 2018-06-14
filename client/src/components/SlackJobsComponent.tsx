@@ -19,41 +19,43 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
       <div className={'slackJobsComponent'}>
         {loadingComponent}
         <div className={'slack-content-table'}>
-        {
-          data.map((slackJob: SlackJobEntity, index: number) => {
-            return (
-              <div className={'slack-content'}>
-                <section className={'slack-content__message slack-content__big-item'}>
-                  <h3 className={'slack-content__section-title msg-title'}>Message</h3>
-                  <p className={'slack-content__section-content'}>
-                    {slackJob.message}
-                  </p>
-                </section>
-                <section className={'slack-content__small-items'}>
-                  <div className={'slack-content__time slack-content__small-item'}>
-                    <h3 className={'slack-content__section-title'}>Time</h3>
-                    <p className={'slack-content__section-content'}>{moment(slackJob.timestamp).toDate().getDate()}</p>
-                  </div>
-                  <div className={'slack-content__chanel slack-content__small-item'}>
-                    <h3 className={'slack-content__section-title'}>Chanel</h3>
-                    <p className={'slack-content__section-content'}>{slackJob.channel}</p>
-                  </div>
-                  <div className={'slack-content__status slack-content__small-item'}>
-                    <h3 className={'slack-content__section-title'}>Status</h3>
+          {
+            data.map((slackJob: SlackJobEntity, index: number) => {
+              return (
+                <div className={'slack-content'}>
+                  <section className={'slack-content__message slack-content__big-item'}>
+                    <h3 className={'slack-content__section-title msg-title'}>Message</h3>
                     <p className={'slack-content__section-content'}>
-                      {(slackJob.sent) ? 'Sent' : 'Pending'}
+                      {slackJob.message}
                     </p>
-                  </div>
-                  <a href="#"
-                     className={'slack-content__button'}
-                     onClick={() => { this.deleteRow(index); }}>
-                    <span className={'slack-content__button-text'}>&#x2715;</span>
-                  </a>
-                </section>
-              </div>
-            );
-          })
-        }
+                  </section>
+                  <section className={'slack-content__small-items'}>
+                    <div className={'slack-content__time slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Time</h3>
+                      <p className={'slack-content__section-content'}>
+                        {moment(slackJob.timestamp).format('MM/DD/YYYY HH:MM')}
+                      </p>
+                    </div>
+                    <div className={'slack-content__chanel slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Chanel</h3>
+                      <p className={'slack-content__section-content'}>{slackJob.channel}</p>
+                    </div>
+                    <div className={'slack-content__status slack-content__small-item'}>
+                      <h3 className={'slack-content__section-title'}>Status</h3>
+                      <p className={'slack-content__section-content'}>
+                        {(slackJob.sent) ? 'Sent' : 'Pending'}
+                      </p>
+                    </div>
+                    <a href="#"
+                       className={'slack-content__button'}
+                       onClick={() => { this.deleteRow(index); }}>
+                      <span className={'slack-content__button-text'}>&#x2715;</span>
+                    </a>
+                  </section>
+                </div>
+              );
+            })
+          }
         </div>
       </div>
     );
