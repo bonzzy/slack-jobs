@@ -4,6 +4,9 @@ import { SlackJobEntity } from '../entities/SlackJobEntity';
 
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
+  public deleteRow(index: number) {
+    this.props.deleteSlackJob(index, this.props.data);
+  }
   render() {
     const { loading, error } = this.props;
     const data = this.props.data ? this.props.data : [];
@@ -39,7 +42,7 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
               Remove
             </div>
           </div>
-          {data.map((slackJob: SlackJobEntity) => {
+          {data.map((slackJob: SlackJobEntity, index: number) => {
             return (
               <div className={'slack-table__row slack-table__row--content'} key={slackJob.id}>
                 <div className={'slack-table__column slack-table__column--4'}>
@@ -55,7 +58,7 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
                   {slackJob.sent ? 'Not send' : 'Sent'}
                 </div>
                 <div className={'slack-table__column'}>
-                  Remove
+                  <button onClick={() => { this.deleteRow(index); }}> Remove </button>
                 </div>
               </div>
             );

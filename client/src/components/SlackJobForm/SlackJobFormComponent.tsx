@@ -20,7 +20,7 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
     this.timestamp = this.state.momentTime.toDate().getTime() + '';
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const { error } = this.props;
 
     this.setState({
@@ -28,103 +28,11 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
     });
   }
 
-  getFormEntity():SlackJobFormEntity {
-    return new SlackJobFormEntity({
-      timestamp: this.timestamp,
-      message: this.message,
-    });
-  }
-  public getValidDates(currentDate: moment.Moment, selectedDate?: moment.Moment) {
-    const timestamp = moment(currentDate)
-      .add(1, 'days')
-      .toDate()
-      .getTime() + '';
-
-    const slackJob = new SlackJobFormEntity({
-      timestamp,
-      message: this.message,
-    });
-
-    const validator = new SlackJobFormValidator(slackJob);
-    validator.validate();
-
-    return validator.isTimestampValid();
-  }
-
-  public createSlackJob() {
-    const formEntity = this.getFormEntity();
-
-    this.props.createSlackJob(formEntity);
-  }
-
-  public handleMessageChange(event: any) {
-    this.message = event.target.value;
-
-    if (this.state.error.length > 0) {
-      this.setState({
-        error: '',
-      });
-    }
-  }
-
-  public handleDateChange(currentDate: moment.Moment) {
-    if (this.state.error.length > 0) {
-      this.setState({
-        error: '',
-      });
-    }
-
-    this.timestamp = currentDate.toDate().getTime() + '';
-    const now = moment();
-    const addMinutes = 1;
-
-    if (currentDate.isBefore(now.add(addMinutes, 'minutes'))) {
-      this.setState({
-        momentTime: now.add(addMinutes, 'minutes'),
-      });
-
-      return;
-    }
-
-    this.setState({
-      momentTime: currentDate,
-    });
-  }
-
-  public handleSubmit(event: any) {
-    event.preventDefault();
-
-    const slackJob = new SlackJobFormEntity({
-      message: this.message,
-      timestamp: this.timestamp,
-    });
-    const validator = new SlackJobFormValidator(slackJob);
-    validator.validate();
-
-    if (validator.isMessageValid() === false) {
-      this.setState({
-        error: validator.getMessageError(),
-      });
-
-      return;
-    }
-
-    if (validator.isTimestampValid() === false) {
-      this.setState({
-        error: validator.getTimestampError(),
-      });
-
-      return;
-    }
-
-    this.createSlackJob();
-  }
-
   public render() {
-    const { loading, data, error } = this.props;
+    const { loading } = this.props;
 
     const loadingComponent = (loading) ?  (<figure className={'slackJobFormComponent__submit__loading'} />) : '';
-    const outputError = (this.state.error.length === 0) ? error : this.state.error;
+    const outputError = this.getNotificationMessage();
 
     return (
       <div className={'slackJobFormComponent'}>
@@ -164,5 +72,105 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
         </form>
       </div>
     );
+  }
+
+  private createSlackJob() {
+    const formEntity = this.getFormEntity();
+
+    this.props.createSlackJob(formEntity);
+  }
+
+  private getNotificationMessage(): string {
+    const { error } = this.props;
+    const message = (this.state.error.length === 0) ? error : this.state.error;
+
+    return message;
+  }
+
+  private handleMessageChange(event: any) {
+    this.message = event.target.value;
+    this.resetErrorMessages();
+  }
+
+  private handleDateChange(currentDate: moment.Moment) {
+    this.resetErrorMessages();
+
+    this.timestamp = currentDate.toDate().getTime() + '';
+    const now = moment();
+    const addMinutes = 1;
+
+    if (currentDate.isBefore(now.add(addMinutes, 'minutes'))) {
+      this.setState({
+        momentTime: now.add(addMinutes, 'minutes'),
+      });
+
+      return;
+    }
+
+    this.setState({
+      momentTime: currentDate,
+    });
+  }
+
+  private handleSubmit(event: any) {
+    event.preventDefault();
+
+    const slackJob = new SlackJobFormEntity({
+      message: this.message,
+      timestamp: this.timestamp,
+    });
+    const validator = new SlackJobFormValidator(slackJob);
+
+    validator.validate();
+
+    if (validator.isMessageValid() === false) {
+      this.setState({
+        error: validator.getMessageError(),
+      });
+
+      return;
+    }
+
+    if (validator.isTimestampValid() === false) {
+      this.setState({
+        error: validator.getTimestampError(),
+      });
+
+      return;
+    }
+
+    this.createSlackJob();
+  }
+
+  private getFormEntity():SlackJobFormEntity {
+    return new SlackJobFormEntity({
+      timestamp: this.timestamp,
+      message: this.message,
+    });
+  }
+
+  private getValidDates(currentDate: moment.Moment, selectedDate?: moment.Moment) {
+    const timestamp = moment(currentDate)
+      .add(1, 'days')
+      .toDate()
+      .getTime() + '';
+
+    const slackJob = new SlackJobFormEntity({
+      timestamp,
+      message: this.message,
+    });
+
+    const validator = new SlackJobFormValidator(slackJob);
+    validator.validate();
+
+    return validator.isTimestampValid();
+  }
+
+  private resetErrorMessages() {
+    if (this.state.error.length > 0) {
+      this.setState({
+        error: '',
+      });
+    }
   }
 }

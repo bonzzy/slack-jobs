@@ -47,4 +47,25 @@ export class SlackJobsAction {
       type: SlackJobsActionTypes.NETWORK_PROBLEM,
     };
   }
+
+  static deleteSlackJob(index: number, slackJobs: SlackJobEntity[]) {
+
+    const slackJobApiService = new SlackJobsApiService();
+    const payload = slackJobApiService.delete(slackJobs[index]);
+
+    return {
+      payload,
+      type: SlackJobsActionTypes.DELETE_SLACK_JOB,
+    };
+  }
+
+  static successDelete(index: number, slackJobs: SlackJobEntity[]) {
+    const slackJobsClone: SlackJobEntity[] = [...slackJobs]; // make a separate copy of the array
+    slackJobsClone.splice(index, 1);
+
+    return {
+      payload: slackJobsClone,
+      type: SlackJobsActionTypes.SUCCESS_DELETE_SLACK_JOB,
+    };
+  }
 }

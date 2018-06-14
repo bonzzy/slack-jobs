@@ -42,6 +42,22 @@ export abstract class ApiService {
     });
   }
 
+  protected deleteRequest<T>(apiUrl: ApiRoutes, id: string): Promise<ApiResponse<T>> {
+    return new Promise((resolve, reject) => {
+      axios.delete(`${this.getBaseUrl()}${apiUrl}${id}`).then((res: AxiosResponse<T>) => {
+
+        if (res.status === 200) {
+          resolve(res.data);
+          return;
+        }
+
+        reject(res.data);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
   public getBaseUrl(): string {
     return 'http://localhost:8080/api';
   }

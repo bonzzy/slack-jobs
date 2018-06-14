@@ -4,6 +4,7 @@ export namespace SlackJobs {
 
   export interface DispatchMethods {
     getSlackJobs?: () => void;
+    deleteSlackJob?: (index: number, allSlackJobs: SlackJobEntity[]) => void;
   }
 
   export interface StateProps {
