@@ -1,10 +1,10 @@
 package com.example.slackjobs.controllers;
 
 import com.example.slackjobs.SlackJobsApplication;
-import com.example.slackjobs.entities.BadRequestRestResponse;
 import com.example.slackjobs.entities.SlackJob;
 import com.example.slackjobs.managers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
+import com.example.slackjobs.services.ConfigService;
 import com.example.slackjobs.stubs.SlackJobRequestStub;
 import com.example.slackjobs.validators.SlackJobValidator;
 import org.junit.Before;
@@ -55,6 +55,8 @@ public class SlackJobsControllerTest {
     @Before
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
+        ConfigService.getInstance().setSlackChannel(defaultSlackJobChannel);
+        ConfigService.getInstance().setSlackWebhook("test-webhook-url");
 
         this.repository.deleteAllInBatch();
 

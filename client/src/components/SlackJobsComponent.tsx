@@ -22,7 +22,7 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
           {
             data.map((slackJob: SlackJobEntity, index: number) => {
               return (
-                <div className={'slack-content'}>
+                <div className={'slack-content'} key={index}>
                   <section className={'slack-content__message slack-content__big-item'}>
                     <h3 className={'slack-content__section-title msg-title'}>Message</h3>
                     <p className={'slack-content__section-content'}>

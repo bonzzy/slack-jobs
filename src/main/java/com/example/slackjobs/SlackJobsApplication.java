@@ -1,10 +1,14 @@
 package com.example.slackjobs;
 
+import com.example.slackjobs.services.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -15,28 +19,26 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableScheduling
-public class SlackJobsApplication {
+public class SlackJobsApplication implements CommandLineRunner {
+
+	@Autowired
+	private Environment env;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SlackJobsApplication.class, args);
 	}
-//
-//	@Bean
-//	CommandLineRunner init(SlackJobsRepository slackJobsRepository) {
-//		return (evt) -> Arrays.asList(
-//				"jhoeller,dsyer,pwebb,ogierke,rwinch,mfisher,mpollack,jlong".split(","))
-//				.forEach(
-//						message -> {
-//							SlackJob slackJob = new SlackJob();
-//
-//							slackJob.message = message;
-//							slackJob.channel = "channel_id";
-//							slackJob.timestamp = "12313213123";
-//							slackJob.setJobStatus(SlackJob.JobStatus.PENDING);
-//
-//							slackJobsRepository.save(slackJob);
-//						});
-//	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		ConfigService configService = ConfigService.getInstance();
+
+		String slackChannel = env.getProperty("channel");
+		String slackWebhook = env.getProperty("webhook");
+
+		configService.setSlackChannel(slackChannel);
+		configService.setSlackWebhook(slackWebhook);
+
+	}
 
 	// CORS
 	@Bean
