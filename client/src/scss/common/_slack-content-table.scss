@@ -2,20 +2,24 @@
   $text-padding: 0 20px;
   $mobile-text-padding: 6px 20px;
   $breakpoint: 640px;
-  $smallest-size: 320px;
+  $bigBreakPoint: 1500px;
+  $smallest-size: 310px;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 
+  @media screen and (min-width: $bigBreakPoint){
+    justify-content: space-between;
+  }
+
   &::after{
     content: '';
     width: 30%;
-    min-width: 550px;
-    position: relative;
+    min-width: $smallest-size;
 
-    @media screen and (max-width: $breakpoint){
-      min-width: $smallest-size;
+    @media screen and (min-width: $breakpoint){
+      min-width: 450px;
     }
   }
 
@@ -30,10 +34,10 @@
     width: 30%;
     box-shadow: 0 2px 9px 0 rgba(13, 25, 68, 0.07);
     color: $grey;
-    min-width: 550px;
+    min-width: $smallest-size;
 
     @media screen and (min-width: $breakpoint){
-      min-width: $smallest-size;
+      min-width: 450px;
     }
 
     &__small-items{
