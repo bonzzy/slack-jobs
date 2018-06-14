@@ -33,7 +33,7 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
                     <div className={'slack-content__time slack-content__small-item'}>
                       <h3 className={'slack-content__section-title'}>Time</h3>
                       <p className={'slack-content__section-content'}>
-                        {moment(slackJob.timestamp).format('MM/DD/YYYY HH:MM')}
+                        {moment(slackJob.timestamp).format('MM/DD/YYYY hh:mm')}
                       </p>
                     </div>
                     <div className={'slack-content__chanel slack-content__small-item'}>
