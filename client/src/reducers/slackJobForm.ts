@@ -1,6 +1,6 @@
 import { SlackJobs } from '../interfaces/SlackJobs';
 import State = SlackJobs.State;
-import {SlackJobFormActionMessages} from "../actions/SlackJobFormAction";
+import { SlackJobFormActionMessages } from '../actions/SlackJobFormAction';
 
 export enum SlackJobFormActionTypes {
   SAVE_NETWORK_PROBLEM = 'SAVE_NETWORK_PROBLEM',
