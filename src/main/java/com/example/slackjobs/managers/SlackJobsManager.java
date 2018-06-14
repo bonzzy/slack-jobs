@@ -24,9 +24,7 @@ public class SlackJobsManager {
         entity.setJobStatus(SlackJob.JobStatus.PENDING);
         entity.channel = ConfigService.getInstance().getSlackChannel();
 
-        SlackJob savedEntity = repository.save(entity);
-
-        return savedEntity;
+        return repository.save(entity);
     }
 
     public void setStatusAsFinished(SlackJob entity) {
