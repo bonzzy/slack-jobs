@@ -21,8 +21,8 @@ import java.io.IOException;
 @EnableScheduling
 public class SlackJobsApplication implements CommandLineRunner {
 
-	@Autowired
-	private Environment env;
+//	@Autowired
+//	private Environment env;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SlackJobsApplication.class, args);
@@ -30,13 +30,13 @@ public class SlackJobsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		ConfigService configService = ConfigService.getInstance();
-
-		String slackChannel = env.getProperty("channel");
-		String slackWebhook = env.getProperty("webhook");
-
-		configService.setSlackChannel(slackChannel);
-		configService.setSlackWebhook(slackWebhook);
+//		ConfigService configService = ConfigService.getInstance();
+//
+//		String slackChannel = env.getProperty("channel");
+//		String slackWebhook = env.getProperty("webhook");
+//
+//		configService.setSlackChannel(slackChannel);
+//		configService.setSlackWebhook(slackWebhook);
 
 	}
 
