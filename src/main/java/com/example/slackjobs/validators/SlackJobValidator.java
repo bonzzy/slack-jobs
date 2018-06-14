@@ -13,6 +13,7 @@ public class SlackJobValidator implements Validator {
         ENTITY_NOT_FOUND("Not found"),
         MESSAGE_NULL("Param message should not be empty!"),
         TIMESTAMP_NULL("Param timestamp should not be empty!"),
+        TIMESTAMP_OLD("Param timestamp should be in the future"),
         ID_NULL("Param id should not be empty!"),
         MESSAGE_TO_BIG("Message should be smalle than 500 characters"),
         MESSAGE_TO_SMALL("Param message should have at least 5 characters"),
@@ -54,9 +55,12 @@ public class SlackJobValidator implements Validator {
             return false;
         }
 
-        System.out.println((Long) currentTimestamp.getTime() + " : " +slackJob.getTimestamp());
-        System.out.println(((Long) currentTimestamp.getTime()).compareTo(slackJob.getTimestamp()));
-        return ((Long) currentTimestamp.getTime()).compareTo(slackJob.getTimestamp()) < 0;
+        if (((Long) currentTimestamp.getTime()).compareTo(slackJob.getTimestamp()) > 0) {
+            error = ErrorMessages.TIMESTAMP_OLD;
+            return false;
+        }
+
+        return true;
     }
 
     private Boolean isMessageValid() {

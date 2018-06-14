@@ -112,4 +112,16 @@ public class SlackJobValidatorTest {
         assertThat(slackJobValidator.error).isEqualTo(SlackJobValidator.ErrorMessages.MESSAGE_TO_SMALL);
     }
 
+    @Test
+    public void returnCorrectErrorWhenGivenOldTimestamp() {
+        SlackJob slackJob = new SlackJob();
+        slackJob.message = "This is a valid message";
+        slackJob.setTime(oldTimestamp);
+
+        SlackJobValidator slackJobValidator = new SlackJobValidator(slackJob);
+        slackJobValidator.validate();
+
+        assertThat(slackJobValidator.error).isEqualTo(SlackJobValidator.ErrorMessages.TIMESTAMP_OLD);
+    }
+
 }

@@ -6,6 +6,7 @@ import com.example.slackjobs.entities.RestResponse;
 import com.example.slackjobs.managers.SlackJobsManager;
 import com.example.slackjobs.repositories.SlackJobsRepository;
 import com.example.slackjobs.utils.TimestampConverter;
+import com.example.slackjobs.validators.SlackJobValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +36,6 @@ public class SlackJobsController {
         SlackJobsManager slackJobsManager = new SlackJobsManager(repository);
         SlackJob slackJob = new SlackJob();
 
-        if (body.get("message") == null) {
-            return ResponseEntity.badRequest().body(new BadRequestRestResponse(BadRequestRestResponse.ErrorMessages.MESSAGE_NULL.getMessage()));
-        }
-
-        if (body.get("timestamp") == null) {
-            return ResponseEntity.badRequest().body(new BadRequestRestResponse(BadRequestRestResponse.ErrorMessages.TIMESTAMP_NULL.getMessage()));
-        }
-
         try {
             TimestampConverter timestampConverter = new TimestampConverter();
             Timestamp timestamp = timestampConverter.convertString(body.get("timestamp"));
@@ -50,13 +43,19 @@ public class SlackJobsController {
             slackJob.message = body.get("message");
             slackJob.setTime(timestamp);
 
+            SlackJobValidator slackJobValidator = new SlackJobValidator(slackJob);
+
+            if (!slackJobValidator.validate()) {
+                return ResponseEntity.badRequest().body(new BadRequestRestResponse(slackJobValidator.error.getMessage()));
+            }
+
             SlackJob savedEntity = slackJobsManager.save(slackJob);
 
             return ResponseEntity
                     .status(201)
                     .body(new RestResponse<>(savedEntity));
         } catch(Exception e) { //this generic but you can control another types of exception
-            return ResponseEntity.badRequest().body(new BadRequestRestResponse(BadRequestRestResponse.ErrorMessages.TIMESTAMP_NOT_VALID.getMessage()));
+            return ResponseEntity.badRequest().body(new BadRequestRestResponse(SlackJobValidator.ErrorMessages.TIMESTAMP_NOT_VALID.getMessage()));
         }
     }
 
