@@ -2,6 +2,7 @@ package com.example.slackjobs.managers;
 
 import com.example.slackjobs.entities.SlackJob;
 import com.example.slackjobs.repositories.SlackJobsRepository;
+import com.example.slackjobs.services.ConfigService;
 import com.example.slackjobs.services.SlackService;
 import org.springframework.beans.factory.annotation.Configurable;
 
@@ -21,7 +22,7 @@ public class SlackJobsManager {
 
     public SlackJob save(SlackJob entity) {
         entity.setJobStatus(SlackJob.JobStatus.PENDING);
-        entity.channel = "Channel name";
+        entity.channel = ConfigService.getInstance().getSlackChannel();
 
         SlackJob savedEntity = repository.save(entity);
 

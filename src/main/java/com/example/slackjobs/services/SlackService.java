@@ -6,7 +6,7 @@ import com.mashape.unirest.http.Unirest;
 public class SlackService {
     public static String MESSAGE_FROM_SLACK_IF_SENT = "ok";
 
-    public String webhookUrl = "https://hooks.slack.com/services/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";
+    public String webhookUrl = ConfigService.getInstance().getSlackWebhook();
 
     public Boolean sendMessage(String message) {
         try {
