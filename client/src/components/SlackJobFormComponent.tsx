@@ -97,6 +97,9 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
     this.resetErrorMessages();
 
     this.timestamp = currentDate.toDate().getTime() + '';
+    this.setState({
+      momentTime: currentDate,
+    });
   }
 
   private handleSubmit(event: any) {
