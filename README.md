@@ -20,6 +20,7 @@ Application can send created messages at given scheduled time to slack channel.
 - Client tests are written with [Jest](https://facebook.github.io/jest/)
 - Backend REST is covered with unit and integration tests
 - `BEM` is used as a styling standard
+- There is a docker image [tomislavfabeta/slack-scheduler](https://hub.docker.com/r/tomislavfabeta/slack-scheduler/)
 
 
 ### Start application
@@ -29,10 +30,16 @@ You have to set env variables `channel` and `webhook`.
 
 ```bash
 webhook=https://hooks.slack.com/services/[secret] channel=Some-channel ./mvnw spring-boot:run
-
 ```
 
 Open your browser and check `http://localhost:8080`.
+
+Starting application with Docker [tomislavfabeta/slack-scheduler](https://hub.docker.com/r/tomislavfabeta/slack-scheduler/):
+
+
+```bash
+sh ./runDocker.sh
+```
 
 ### Contributing
 
