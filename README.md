@@ -24,8 +24,12 @@ Application can send created messages at given scheduled time to slack channel.
 
 ### Start application
 
+You have to set env variables `channel` and `webhook`.
+
+
 ```bash
-./mvnw clean install
+webhook=https://hooks.slack.com/services/[secret] channel=Some-channel ./mvnw spring-boot:run
+
 ```
 
 Open your browser and check `http://localhost:8080`.
