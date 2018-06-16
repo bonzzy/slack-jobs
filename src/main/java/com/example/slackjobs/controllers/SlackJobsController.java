@@ -35,28 +35,28 @@ public class SlackJobsController {
     public ResponseEntity createJob(@RequestParam Map<String, String> body) {
         SlackJobsManager slackJobsManager = new SlackJobsManager(repository);
         SlackJob slackJob = new SlackJob();
+        Timestamp timestamp;
 
         try {
             TimestampConverter timestampConverter = new TimestampConverter();
-            Timestamp timestamp = timestampConverter.convertString(body.get("timestamp"));
-
-            slackJob.message = body.get("message");
-            slackJob.setTime(timestamp);
-
-            SlackJobValidator slackJobValidator = new SlackJobValidator(slackJob);
-
-            if (!slackJobValidator.validate()) {
-                return ResponseEntity.badRequest().body(new BadRequestRestResponse(slackJobValidator.error.getMessage()));
-            }
-
-            SlackJob savedEntity = slackJobsManager.save(slackJob);
-
-            return ResponseEntity
-                    .status(201)
-                    .body(new RestResponse<>(savedEntity));
-        } catch(Exception e) { //this generic but you can control another types of exception
+            timestamp = timestampConverter.convertString(body.get("timestamp"));
+        } catch(Exception e) {
             return ResponseEntity.badRequest().body(new BadRequestRestResponse(SlackJobValidator.ErrorMessages.TIMESTAMP_NOT_VALID.getMessage()));
         }
+
+        slackJob.message = body.get("message");
+        slackJob.setTime(timestamp);
+        SlackJobValidator slackJobValidator = new SlackJobValidator(slackJob);
+
+        if (!slackJobValidator.validate()) {
+            return ResponseEntity.badRequest().body(new BadRequestRestResponse(slackJobValidator.error.getMessage()));
+        }
+
+        SlackJob savedEntity = slackJobsManager.save(slackJob);
+
+        return ResponseEntity
+                .status(201)
+                .body(new RestResponse<>(savedEntity));
     }
 
     @DeleteMapping("/{id}")
