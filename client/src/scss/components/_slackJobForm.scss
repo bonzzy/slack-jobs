@@ -41,16 +41,10 @@
     }
 
     &__loading {
-      background-image: url("static/images/loader.gif");
-      width: 150px;
-      height: 150px;
-      margin: 0;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
       top: -96%;
       position: absolute;
       left: 9px;
+      margin: 0;
     }
   }
 

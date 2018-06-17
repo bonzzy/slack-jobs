@@ -67,7 +67,7 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
               value={loading ? '' : 'Create Job'}
               disabled={loading}
             />
-            {(loading) ? <LoadingComponent/> : ''}
+            {(loading) ? <LoadingComponent className={'slackJobFormComponent__submit__loading'}/> : ''}
           </div>
 
         </form>

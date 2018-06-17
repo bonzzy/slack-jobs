@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SlackJobs } from '../interfaces/SlackJobs';
 import { SlackJobEntity } from '../entities/SlackJobEntity';
 import moment from 'moment';
+import LoadingComponent from './LoadingComponent';
 
 export default class SlackJobsComponent extends React.Component<SlackJobs.Props, SlackJobs.State> {
 
@@ -12,12 +13,16 @@ export default class SlackJobsComponent extends React.Component<SlackJobs.Props,
     const { loading, error } = this.props;
     const data = this.props.data ? this.props.data : [];
 
-    const loadingComponent = loading ? 'loading...' : '';
     const errorCssClassModifier = error.length > 0 ? 'slackJobsComponent__error--active' : '';
 
     return (
       <div className={'slackJobsComponent'}>
-        {loadingComponent}
+        {(loading) ? <LoadingComponent className={'slackJobsComponent__loading'}/> : ''}
+        {(data.length === 0) ? (
+          <div className={'slackJobsComponent__jobs-empty'}>
+            Nothing to see here yet...
+          </div>) : ''
+        }
         <div className={'slack-content-table'}>
           {
             data.map((slackJob: SlackJobEntity, index: number) => {

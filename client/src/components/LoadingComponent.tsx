@@ -1,10 +1,19 @@
 import * as React from 'react';
 
-export default class LoadingComponent extends React.Component {
+export namespace Loading {
+  export interface props {
+    className?: string;
+  }
+}
+export default class LoadingComponent extends React.Component<Loading.props> {
 
   render() {
+    const className = (this.props.className) ? this.props.className : '';
+
     return (
-      <figure className={'slackJobFormComponent__submit__loading'} />
+      <div className="loadingComponent">
+        <figure className={`loadingComponent__figure ${className}`} />
+      </div>
     );
   }
 }
