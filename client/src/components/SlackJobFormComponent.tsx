@@ -67,7 +67,7 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
               value={loading ? '' : 'Create Job'}
               disabled={loading}
             />
-            {(loading) ? <LoadingComponent/> : ''}
+            {(loading) ? <LoadingComponent className={'slackJobFormComponent__submit__loading'}/> : ''}
           </div>
 
         </form>
@@ -96,7 +96,16 @@ export default class SlackJobFormComponent extends React.Component<SlackJobsForm
   private handleDateChange(currentDate: moment.Moment) {
     this.resetErrorMessages();
 
-    this.timestamp = currentDate.toDate().getTime() + '';
+    try {
+      const formattedTimestamp = currentDate.toDate().getTime() + '';
+      this.timestamp = formattedTimestamp;
+    } catch (e) {
+      this.setState({
+        momentTime: moment(parseInt(this.timestamp, 0)),
+      });
+      return;
+    }
+
     this.setState({
       momentTime: currentDate,
     });

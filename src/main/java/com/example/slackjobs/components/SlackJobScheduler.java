@@ -25,7 +25,7 @@ public class SlackJobScheduler {
     }
 
     @Scheduled(fixedRate = 20000)
-    public void reportCurrentTime() {
+    public void sendScheduledMessages() {
         SlackJobsManager slackJobsManager = new SlackJobsManager(repository);
         slackJobsManager.sendNowScheduledMessages();
     }

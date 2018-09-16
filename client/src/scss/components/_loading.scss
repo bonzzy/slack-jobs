@@ -1,0 +1,10 @@
+.loadingComponent {
+  &__figure {
+    background-image: url("static/images/loader.gif");
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
